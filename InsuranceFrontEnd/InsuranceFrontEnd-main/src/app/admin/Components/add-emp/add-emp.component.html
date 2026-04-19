@@ -1,0 +1,133 @@
+<div class="wrapper">
+  <app-admin-header></app-admin-header>
+  <div class="top_link">
+    <button (click)="goBack()" class="ms-3 mt-2">
+      <img
+        src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download"
+        alt=""
+      />Back
+    </button>
+  </div>
+  <div class="container" id="addEmp">
+    <h3 id="Label">Employee Registration</h3>
+  
+    <form [formGroup]="addEmpForm">
+      <div class="mb-3">
+        <input
+          type="text"
+          formControlName="firstName"
+          placeholder="First Name*"
+          class="form-control"
+        />
+        <small *ngIf="addEmpForm.get('firstName')?.dirty && addEmpForm.get('firstName')?.hasError('required')" class="text-danger">
+          *First Name is required.
+        </small>
+        <small *ngIf="addEmpForm.get('firstName')?.dirty && addEmpForm.get('firstName')?.hasError('minlength')" class="text-danger">
+          *Minimum 3 characters are required.
+        </small>
+      </div>
+  
+      <div class="mb-3">
+        <input
+          type="text"
+          formControlName="lastName"
+          placeholder="Last Name*"
+          class="form-control"
+        />
+        <small *ngIf="addEmpForm.get('lastName')?.dirty && addEmpForm.get('lastName')?.hasError('required')" class="text-danger">
+          *Last Name is required.
+        </small>
+        <small *ngIf="addEmpForm.get('lastName')?.dirty && addEmpForm.get('lastName')?.hasError('minlength')" class="text-danger">
+          *Minimum 3 characters are required.
+        </small>
+      </div>
+  
+      <div class="mb-3">
+        <input
+          type="userName"
+          formControlName="userName"
+          placeholder="Username*"
+          class="form-control"
+        />
+        <small *ngIf="addEmpForm.get('userName')?.dirty && addEmpForm.get('userName')?.hasError('required')" class="text-danger">
+          *Username is required.
+        </small>
+        <small *ngIf="addEmpForm.get('userName')?.dirty && addEmpForm.get('userName')?.hasError('minlength')" class="text-danger">
+          *Minimum 6 characters are required.
+        </small>
+      </div>
+  
+      <div class="mb-3">
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="Password*"
+          class="form-control"
+        />
+        <small *ngIf="addEmpForm.get('password')?.dirty && addEmpForm.get('password')?.hasError('required')" class="text-danger">
+          *Password is required.
+        </small>
+        <small *ngIf="addEmpForm.get('password')?.dirty && addEmpForm.get('password')?.hasError('passwordValidator')" class="text-danger">
+          *Password must be at least 6 characters long and contain a number.
+        </small>
+      </div>
+  
+      <div class="mb-3">
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Email*"
+          class="form-control"
+        />
+        <small *ngIf="addEmpForm.get('email')?.dirty && addEmpForm.get('email')?.hasError('required')" class="text-danger">
+          *Email is required.
+        </small>
+        <small *ngIf="addEmpForm.get('email')?.dirty && addEmpForm.get('email')?.hasError('email')" class="text-danger">
+          *Invalid email format.
+        </small>
+      </div>
+  
+      <div class="mb-3">
+        <input
+          type="number"
+          formControlName="mobileNumber"
+          placeholder="Mobile Number*"
+          class="form-control"
+        />
+        <small *ngIf="addEmpForm.get('mobileNumber')?.dirty && addEmpForm.get('mobileNumber')?.hasError('required')" class="text-danger">
+          *Mobile Number is required.
+        </small>
+        <small *ngIf="addEmpForm.get('mobileNumber')?.hasError('pattern')" class="text-danger">
+          *Invalid phone number format.
+        </small>
+      </div>
+  
+      <div class="mb-3">
+        <input
+          type="number"
+          formControlName="salary"
+          placeholder="Salary"
+          class="form-control"
+        />
+        <small *ngIf="addEmpForm.get('salary')?.dirty && addEmpForm.get('salary')?.hasError('min')" class="text-danger">
+          *Salary cannot be negative.
+        </small>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-4 ms-2 mb-2">
+          <button type="button" class="btn btn-secondary" (click)="OnCancel()">
+            Cancel
+          </button>
+        </div>
+        <div class="col-md-4 mb-2">
+          <button id="save" type="button" class="btn btn-primary" (click)="addEmp()">
+            Register
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  
+</div>
+<app-footer-other></app-footer-other>

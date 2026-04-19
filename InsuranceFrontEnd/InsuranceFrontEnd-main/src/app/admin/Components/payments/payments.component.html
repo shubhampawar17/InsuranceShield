@@ -1,0 +1,305 @@
+<div class="wrapper">
+  <app-admin-header></app-admin-header>
+  <!-- Button trigger modal  -->
+  <div class="top_link">
+    <button (click)="goBack()" class="ms-3 mt-2">
+      <img
+        src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download"
+        alt=""
+      />Back
+    </button>
+  </div>
+  <!-- Table starts here -->
+  <div class="container py-2 mt-4" >
+    <div class="row align-items-center justify-content-between mb-2">
+      <!-- Page Size Dropdown -->
+      <div class="col-md-4 d-flex align-items-center">
+        <label for="pageSizeSelect" class="me-2 mb-0">Records per page:</label>
+        <select
+          id="pageSizeSelect"
+          class="form-select form-select-sm w-auto"
+          (change)="onPageSizeChange($event)"
+        >
+          <option *ngFor="let pageSize of pageSizes" [value]="pageSize">
+            {{ pageSize }}
+          </option>
+        </select>
+      </div>
+  
+      <!-- Pagination Controls
+      <div class="col-md-4 d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination mb-0">
+            <li class="page-item" *ngIf="currentPage > 1">
+              <a
+                class="page-link"
+                (click)="changePage(currentPage - 1)"
+                aria-label="Previous"
+              >
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item" *ngFor="let page of pageNumbers">
+              <a
+                class="page-link"
+                [ngClass]="{ active: currentPage === page }"
+                (click)="changePage(page)"
+              >
+                {{ page }}
+              </a>
+            </li>
+            <li class="page-item" *ngIf="currentPage < pageNumbers.length">
+              <a
+                class="page-link"
+                (click)="changePage(currentPage + 1)"
+                aria-label="Next"
+              >
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div> -->
+  
+      <!-- Date Filter and Search Buttons -->
+      <div class="col-md-4 d-flex justify-content-end">
+        <div class="input-group">
+          <!-- From Date -->
+          <input
+            type="date"
+            class="form-control form-control-sm"
+            id="fromDate"
+            [(ngModel)]="fromDate"
+            placeholder="From date"
+            aria-label="From Date"
+          />
+  
+          <!-- To Date -->
+          <input
+            type="date"
+            class="form-control form-control-sm"
+            id="toDate"
+            [(ngModel)]="toDate"
+            placeholder="To date"
+            aria-label="To Date"
+          />
+  
+          <!-- Search Button -->
+          <button
+            *ngIf="!isSearch"
+            class="btn btn-primary btn-sm"
+            (click)="onSearch()"
+            type="button"
+          >
+            <i class="bi bi-search"></i> Search
+          </button>
+  
+          <!-- Reset Button -->
+          <button
+            *ngIf="isSearch"
+            class="btn btn-secondary btn-sm"
+            (click)="resetSearch()"
+            type="button"
+          >
+            <i class="bi bi-x"></i> Reset
+          </button>
+        </div>
+      </div>
+    </div>
+  
+  
+    <br>
+  
+    
+  
+
+    <table
+      id="paymentTable"
+      class="table table-light table-responsive-md table-hover Data-table"
+    >
+      <thead>
+        <tr>
+          <th scope="col">Sr.No</th>
+          <th scope="col">Policy Number</th>
+          <!-- <th scope="col">Premium</th> -->
+          <th scope="col">Date</th>
+          <th scope="col">Tax</th>
+          <th scope="col">Total Payment</th>
+          <th scope="col">More</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="payments.length > 0">
+        <tr *ngFor="let payment of payments; let i = index">
+          <td>
+            {{ calculateSRNumber(i) }}
+          </td>
+
+          <td>
+            {{ payment.policyNumber }}
+          </td>
+          <td>
+            {{ payment.paymentDate | date : "dd-MM-YYYY" }}
+          </td>
+          <td>{{ payment.tax }}%</td>
+          <td>&#x20B9;{{ roundToTwoDecimals(payment.amount) }}</td>
+          <td>
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#policyPaymentModal"
+              (click)="viewDetail(payment)"
+            >
+              View Detail
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot *ngIf="payments.length == 0">
+        <tr class="text-center">
+          <td colspan="9">No payment Data Found</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="row">
+    <!-- <div class="col-md-4">
+      <div class="pagination-controls pt-3">
+        <label for="pageSizeSelect">Records per page:</label>
+        <select
+          id="pageSizeSelect"
+          class="form-control form-select-sm"
+          (change)="onPageSizeChange($event)"
+        >
+          <option *ngFor="let pageSize of pageSizes" [value]="pageSize">
+            {{ pageSize }}
+          </option>
+        </select>
+      </div>
+    </div> -->
+  
+    <div class="col-md-12 d-flex justify-content-center align-items-center">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination page-row mt-3 mb-0">
+          <!-- Previous Button -->
+          <li class="page-item" *ngIf="currentPage > 1">
+            <a
+              class="page-link"
+              (click)="changePage(currentPage - 1)"
+              aria-label="Previous"
+            >
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+    
+          <!-- Page Numbers -->
+          <li class="page-item" *ngFor="let page of pageNumbers">
+            <a
+              class="page-link"
+              [ngClass]="{ active: currentPage === page }"
+              (click)="changePage(page)"
+            >
+              {{ page }}
+            </a>
+          </li>
+    
+          <!-- Next Button -->
+          <li class="page-item" *ngIf="currentPage < pageNumbers.length">
+            <a
+              class="page-link"
+              (click)="changePage(currentPage + 1)"
+              aria-label="Next"
+            >
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    
+  <div
+    class="modal fade"
+    id="policyPaymentModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-body">
+          <table>
+            <tr>
+              <td>Customer Name:</td>
+              <td>
+                {{ customerData.firstName }}
+                {{ customerData.lastName }}
+              </td>
+            </tr>
+
+            <tr>
+              <td>Mobile No:</td>
+              <td>+91 {{ customerData.mobileNumber }}</td>
+            </tr>
+            <tr>
+              <td>Email</td>
+              <td>{{ customerData.email }}</td>
+            </tr>
+            <tr>
+              <td>Policy No:</td>
+              <td>{{ policyData.policyNumber }}</td>
+            </tr>
+            <!-- <tr>
+              <td>SchemeId</td>
+              <td>{{ policyData.insuranceSchemeId }}</td>
+            </tr> -->
+            <tr>
+              <td>Issue Date:</td>
+              <td>{{ policyData.issueDate | date : "dd-MM-YYYY" }}</td>
+            </tr>
+            <tr>
+              <td>Maturity Date:</td>
+              <td>{{ policyData.maturityDate | date : "dd-MM-YYYY" }}</td>
+            </tr>
+
+            <tr>
+              <td>Maturity Amount:</td>
+              <td>
+                <span style="font-family: 'RupeeFont'">₹</span
+                >{{ policyData.sumAssured }}
+              </td>
+            </tr>
+            <tr>
+              <td>Premium Amount:</td>
+              <td>
+                <span style="font-family: 'RupeeFont'">₹</span
+                >{{ roundToTwoDecimals(policyData.premiumAmount) }}
+              </td>
+            </tr>
+
+            <!-- <tr>
+            <td>Required Documents:</td>
+            <td *ngFor="let rdoc of scheme.additionalDetail.requiredDocuments"><span>{{rdoc.docType}},</span></td>
+          </tr> -->
+          </table>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          style="
+            width: 10rem;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+          "
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<app-footer-other></app-footer-other>

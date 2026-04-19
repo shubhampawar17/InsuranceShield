@@ -1,0 +1,217 @@
+<div class="wrapper">
+<app-customer-header></app-customer-header>
+
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-8" id="leftcol">
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item" *ngFor="let scheme of planSchemes; let i = index">
+          <h2 class="accordion-header">
+            <button class="accordion-button " type="button" data-bs-toggle="collapse"
+              [attr.data-bs-target]="'#collapse-' + i" aria-expanded="true" aria-controls="collapseOne" style="text-transform: uppercase;  ">
+              {{ scheme.schemeName }}
+            </button>
+          </h2>
+          <div [attr.id]="'collapse-' + i" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <h4>{{ scheme.description }}</h4>
+              <table>
+                <tr>
+                  <td>Minimum Age:</td>
+                  <td>{{ scheme.minAge }} years</td>
+                </tr>
+                <tr>
+                  <td>Maximum Age:</td>
+                  <td>{{ scheme.maxAge }} years</td>
+                </tr>
+                <tr>
+                  <td>Minimum Term:</td>
+                  <td>{{ scheme.minInvestTime }} years</td>
+                </tr>
+                <tr>
+                  <td>Maximum Term:</td>
+                  <td>{{ scheme.maxInvestTime }} years</td>
+                </tr>
+
+                <tr>
+                  <td>Min Investment Amount:</td>
+                  <td>&#x20B9;{{ scheme.minAmount }}</td>
+                </tr>
+                <tr>
+                  <td>Max Investment Amount:</td>
+                  <td>&#x20B9;{{ scheme.maxAmount }}</td>
+                </tr>
+                <tr>
+                  <td>Profit Percentage:</td>
+                  <td>{{ scheme.profitRatio }}&#37;</td>
+                </tr>
+                <tr>
+                  <td>Required Documents:</td>
+                  <td>
+                    <span>{{ scheme.requireddocuments?.join(', ') }}</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 text-center" id="rightCol">
+      <div class="claculator">
+        <h3>Premium Calculator</h3>
+
+        <form [formGroup]="premiumCalculateForm" name="premiumCalculateForm">
+          <div class="form-group">
+            <label for="schemeSelect">Select Scheme</label>
+            <select id="schemeSelect" class="menu" formControlName="schemeName">
+              <option *ngFor="let scheme of planSchemes" [value]="scheme.schemeId">
+                {{ scheme.schemeName }}
+              </option>
+            </select>
+            <div *ngIf="premiumCalculateForm.get('schemeName')?.touched && premiumCalculateForm.get('schemeName')?.invalid" class="text-danger">
+              *Please select a scheme.
+            </div>
+          </div>
+          <div class="col-md-12 mt-2">
+            <label for="abc">Select Premium Mode</label>
+            <select class="menu" name="premium Type" id="abc" formControlName="premiumType">
+
+              <option value="Monthly">Monthly</option>
+              <option value="Quaterly">Quaterly</option>
+              <option value="Yearly">Yearly</option>
+              <option value="Half Yearly">Half Yearly</option>
+            </select>
+            <small
+            *ngIf="
+            premiumCalculateForm.get('premiumType')?.dirty &&
+            premiumCalculateForm.get('premiumType')?.hasError('required')
+            "
+            class="text-danger"
+            >Please Select Premium Mode</small>
+          </div>
+          <div class="col-md-12 mt-2">
+            <input 
+              type="number" 
+              formControlName="term" 
+              required 
+              placeholder="Enter Investment Time (in years)" 
+              min="0" 
+              (input)="validateTerm()" 
+            />
+          
+            <!-- Required Error -->
+            <small
+              *ngIf="
+                premiumCalculateForm.get('term')?.touched && 
+                premiumCalculateForm.get('term')?.hasError('required') && !isDecimalError
+              "
+              class="text-danger"
+            >
+              <br>Investment Time is Required
+            </small>
+          
+            <!-- Decimal Error -->
+            <small
+              *ngIf="isDecimalError"
+              class="text-danger"
+            >
+              <br>Decimal values are not allowed
+            </small>
+          
+          
+          </div>
+          
+          <div class="col-md-12 mt-2">
+            <input id="amountField" type="number" formControlName="sumAssured" required placeholder="Enter Investment Amount" min="0" (input)="validateTerm()" />
+            <small
+            *ngIf="
+            premiumCalculateForm.get('sumAssured')?.dirty &&
+            premiumCalculateForm.get('sumAssured')?.hasError('required')
+            "
+            class="text-danger"
+            ><br>Investment Amount is Required</small>
+            <small
+              *ngIf="isAmountDecimalError"
+              class="text-danger"
+            >
+              <br>Decimal values are not allowed
+            </small>
+            <small
+            *ngIf="
+            premiumCalculateForm.get('sumAssured')?.dirty &&
+            premiumCalculateForm.get('sumAssured')?.hasError('min')
+            "
+            class="text-danger"
+            ><br>Invalid</small>
+          </div>
+          <div class="col-12 mt-2">
+            <button type="submit" class="submit" (click)="calculatePremium()">
+              Calculate
+            </button>
+          </div>
+        </form>
+        <div class="result" *ngIf="isDisabled">
+          <div style="
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  padding: 15px 20px;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  margin: 15px auto;
+  margin-top: 0px;
+  text-align: left;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #444444;
+">
+  <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">
+    Premium Amount: 
+    <span style="color: #0056b3;">{{ this.premium }}</span>
+  </h3>
+  <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">
+    Total Installments: 
+    <span style="color: #198754;">{{ totalPremiumEMI }}</span>
+  </h3>
+  <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 0;">
+    Maturity Amount: 
+    <span style="color: #d35400;">{{ MaturityAmount }}</span>
+  </h3>
+</div>
+          <div class="col-12 mt-1 me-5">
+
+            <button class="submitBtn" (click)="applyPolicy()">
+              Proceed to Buy
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="policyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Verify Details
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button id="save" type="button" class="btn btn-primary">
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<app-footer-other></app-footer-other>

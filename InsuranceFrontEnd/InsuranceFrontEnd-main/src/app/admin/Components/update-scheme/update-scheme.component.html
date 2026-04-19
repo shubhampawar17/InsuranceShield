@@ -1,0 +1,372 @@
+<div class="wrapper">
+  <app-admin-header></app-admin-header>
+  <div class="top_link">
+    <button (click)="goBack()" class="ms-3 mt-2">
+      <img
+        src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download"
+        alt=""
+      />Back
+    </button>
+  </div>
+  <div class="container">
+    <h3 class="modal-title text-center mb-4" id="exampleModalLabel">Update Scheme Details</h3>
+    <form [formGroup]="updateSchemeForm" class="p-4 border rounded shadow-sm bg-light custom-form">
+      
+      <!-- Scheme Name -->
+      <div class="mb-3">
+        <input
+          class="form-control form-control-lg"
+          type="text"
+          formControlName="schemeName"
+          placeholder="Scheme Name*"
+        />
+        <small
+          *ngIf="updateSchemeForm.get('schemeName')?.dirty && updateSchemeForm.get('schemeName')?.hasError('required')"
+          class="text-danger"
+        >*Field is required.</small>
+       
+      </div>
+  
+      <!-- Description -->
+      <div class="mb-3">
+        <input
+          class="form-control form-control-lg"
+          type="text"
+          formControlName="description"
+          placeholder="TAG LINE*"
+        />
+        <small
+          *ngIf="updateSchemeForm.get('description')?.dirty && updateSchemeForm.get('description')?.hasError('required')"
+          class="text-danger"
+        >*Field is required.</small>
+      </div>
+  
+      <!-- Minimum Amount -->
+      <div class="mb-3">
+        <input
+          class="form-control form-control-lg"
+          type="number"
+          formControlName="minAmount"
+          placeholder="MINIMUM INVESTMENT AMOUNT*"
+          min="1"
+        />
+        <small *ngIf="updateSchemeForm.get('minAmount')?.dirty && updateSchemeForm.get('minAmount')?.hasError('required')
+          && !updateSchemeForm.get('minAmount')?.hasError('notInteger') && !updateSchemeForm.get('minAmount')?.hasError('min')" class="text-danger">
+            *Field is required.
+          </small>
+          <small *ngIf="updateSchemeForm.get('minAmount')?.hasError('notInteger')&&!updateSchemeForm.get('minAmount')?.hasError('min')" class="text-danger">
+            Amount Should not be in decimal
+          </small>
+          <small *ngIf="updateSchemeForm.get('minAmount')?.hasError('min')" class="text-danger">
+            Amount should be greater than or equal to 1
+          </small>
+      </div>
+  
+      <!-- Maximum Amount -->
+      <div class="mb-3">
+        <input
+          class="form-control form-control-lg"
+          type="number"
+          formControlName="maxAmount"
+          placeholder="MAX INVESTMENT AMOUNT*"
+          min="1"
+        />
+        <small *ngIf="updateSchemeForm.get('maxAmount')?.dirty && updateSchemeForm.get('maxAmount')?.hasError('required')
+          && !updateSchemeForm.hasError('minAmountGreaterThanMax')
+          && !updateSchemeForm.get('maxAmount')?.hasError('min')" class="text-danger">
+            *Field is required.
+          </small>
+          <small *ngIf="updateSchemeForm.get('maxAmount')?.hasError('notInteger') && !updateSchemeForm.hasError('minAmountGreaterThanMax')
+          && !updateSchemeForm.get('maxAmount')?.hasError('min')" class="text-danger">
+            Amount Should not be in decimal
+          </small>
+          <small *ngIf="updateSchemeForm.get('maxAmount')?.hasError('min')" class="text-danger">
+            Amount should be greater than or equal to 1
+          </small>
+          <small *ngIf="updateSchemeForm.hasError('minAmountGreaterThanMax') && updateSchemeForm.get('maxAmount')?.dirty
+          && !updateSchemeForm.get('maxAmount')?.hasError('min')" class="text-danger">
+            Maximum amount should be greater than the minimum amount.
+          </small>
+          </div>
+  
+      <!-- Minimum Age -->
+      <div class="mb-3">
+        <input
+          class="form-control form-control-lg"
+          type="number"
+          formControlName="minAge"
+          placeholder="MINIMUM AGE*"
+          min="1"
+          max="60"
+        />
+        <small *ngIf="updateSchemeForm.get('minAge')?.dirty && updateSchemeForm.get('minAge')?.hasError('required')&&
+      !updateSchemeForm.get('minAge')?.hasError('min')&&
+      !updateSchemeForm.get('minAge')?.hasError('max')&&
+      !updateSchemeForm.get('minAge')?.hasError('notInteger')" class="text-danger">
+            *Field is required.
+          </small>
+          <small
+    *ngIf="
+      updateSchemeForm.get('minAge')?.dirty &&
+      updateSchemeForm.get('minAge')?.hasError('min')"
+    class="text-danger"
+  >
+    Minimum Age must be 1.
+  </small>
+  <small
+    *ngIf="
+      updateSchemeForm.get('minAge')?.dirty &&
+      updateSchemeForm.get('minAge')?.hasError('max')"
+    class="text-danger"
+  >
+    Minimum Age must be below 60.
+  </small>
+  <small
+    *ngIf="
+      updateSchemeForm.get('minAge')?.dirty &&
+      updateSchemeForm.get('minAge')?.hasError('notInteger')&&
+      !updateSchemeForm.get('minAge')?.hasError('max')&&
+      !updateSchemeForm.get('minAge')?.hasError('min')"
+    class="text-danger"
+  >
+    *Decimal values not allowed.
+  </small>
+  </div>
+  
+      <!-- Maximum Age -->
+      <div class="mb-3">
+        <input
+          class="form-control form-control-lg"
+          type="number"
+          formControlName="maxAge"
+          placeholder="MAX AGE*"
+          min="1"
+          max="100"
+        />
+        <small *ngIf="updateSchemeForm.get('maxAge')?.dirty && updateSchemeForm.get('maxAge')?.hasError('required')
+          &&
+          !updateSchemeForm.get('maxAge')?.hasError('notInteger')&&
+          !updateSchemeForm.get('maxAge')?.hasError('min')&&
+          !updateSchemeForm.get('maxAge')?.hasError('max')
+          " class="text-danger">
+            *Field is required.
+          </small>
+          <small
+    *ngIf="
+      updateSchemeForm.get('maxAge')?.dirty &&
+      updateSchemeForm.get('maxAge')?.hasError('min')"
+    class="text-danger"
+  >
+    Minimum Age must be 1.
+  </small>
+  <small
+    *ngIf="
+      updateSchemeForm.get('maxAge')?.dirty &&
+      updateSchemeForm.get('maxAge')?.hasError('max')"
+    class="text-danger"
+  >
+    Maximum Age must be below 100.
+  </small>
+          <small *ngIf="updateSchemeForm.hasError('minAgeGreaterThanMax') && updateSchemeForm.get('maxAge')?.dirty
+          &&
+          !updateSchemeForm.get('maxAge')?.hasError('min')&&
+          !updateSchemeForm.get('maxAge')?.hasError('max')" class="text-danger">
+            Maximum age should be greater than the minimum age.
+          </small>
+          <small
+    *ngIf="
+      updateSchemeForm.get('maxAge')?.dirty &&
+      updateSchemeForm.get('maxAge')?.hasError('notInteger')&&
+      !updateSchemeForm.get('maxAge')?.hasError('min')&&
+      !updateSchemeForm.get('maxAge')?.hasError('max')&&
+      !updateSchemeForm.hasError('minAgeGreaterThanMax')"
+    class="text-danger"
+  >
+    *Decimal values not allowed.
+  </small>
+      </div>
+  
+      <!-- Minimum Investment Time -->
+      <div class="mb-3">
+        <input
+          class="form-control form-control-lg"
+          type="number"
+          formControlName="minInvestTime"
+          placeholder="MINIMUM TERM*"
+          min="1"
+        />
+        <small *ngIf="updateSchemeForm.get('minInvestTime')?.dirty && updateSchemeForm.get('minInvestTime')?.hasError('required')
+          &&!updateSchemeForm.get('minInvestTime')?.hasError('notInteger')
+          &&!updateSchemeForm.get('minInvestTime')?.hasError('min')" class="text-danger">
+            *Field is required.
+          </small>
+          <small
+          *ngIf="
+            updateSchemeForm.get('minInvestTime')?.dirty &&
+            updateSchemeForm.get('minInvestTime')?.hasError('min')"
+          class="text-danger"
+        >
+          Minimum Investment Time must be Atleast 1 year.
+        </small>
+          <small *ngIf="updateSchemeForm.get('minInvestTime')?.hasError('notInteger')
+          && !updateSchemeForm.get('minInvestTime')?.hasError('min')" class="text-danger">
+            *Decimal values not allowed.
+          </small>
+      </div>
+  
+      <!-- Maximum Investment Time -->
+      <div class="mb-3">
+        <input
+          class="form-control form-control-lg"
+          type="number"
+          formControlName="maxInvestTime"
+          placeholder="MAXIMUM TERM*"
+        />
+        <small *ngIf="updateSchemeForm.get('maxInvestTime')?.dirty && updateSchemeForm.get('maxInvestTime')?.hasError('required')
+          && !updateSchemeForm.get('maxInvestTime')?.hasError('min')
+          && !updateSchemeForm.hasError('minInvestTimeGreaterThanMax')
+          && !updateSchemeForm.get('maxInvestTime')?.hasError('notInteger')
+          " class="text-danger">
+            *Field is required.
+          </small>
+
+          <small *ngIf="updateSchemeForm.get('maxInvestTime')?.hasError('notInteger')
+          && !updateSchemeForm.get('maxInvestTime')?.hasError('min') && !updateSchemeForm.hasError('minInvestTimeGreaterThanMax')" class="text-danger">
+            *Decimal values not allowed.
+          </small>
+          <small
+          *ngIf="
+            updateSchemeForm.get('maxInvestTime')?.dirty &&
+            updateSchemeForm.get('maxInvestTime')?.hasError('min')"
+          class="text-danger"
+        >
+          Minimum Investment Time must be Atleast 1 year.
+        </small>
+          <small *ngIf="updateSchemeForm.hasError('minInvestTimeGreaterThanMax') && updateSchemeForm.get('maxInvestTime')?.dirty
+          && !updateSchemeForm.get('maxInvestTime')?.hasError('min')" class="text-danger">
+            Maximum term should be greater than the minimum term.
+          </small>
+      </div>
+  
+      <!-- Profit Ratio -->
+      <div class="mb-3">
+        <input
+          class="form-control form-control-lg"
+          type="number"
+          formControlName="profitRatio"
+          placeholder="PROFIT PERCENT*"
+          min="0"
+        />
+        <small
+            *ngIf="
+              updateSchemeForm.get('profitRatio')?.dirty &&
+              updateSchemeForm.get('profitRatio')?.hasError('required')&&
+              !updateSchemeForm.get('profitRatio')?.hasError('min')
+            "
+            class="text-danger"
+            >*Field is required.</small
+          >
+          <small
+          *ngIf="
+            updateSchemeForm.get('profitRatio')?.dirty &&
+            updateSchemeForm.get('profitRatio')?.hasError('min')"
+          class="text-danger"
+        >
+          No Negatives Values Accepted.
+        </small>
+      </div>
+  
+      <!-- Registration Commission Ratio -->
+      <div class="mb-3">
+        <input
+          class="form-control form-control-lg"
+          type="number"
+          formControlName="registrationCommRatio"
+          placeholder="REGISTER COMMISSION PERCENT*"
+          min="0"
+        />
+        <small
+            *ngIf="
+              updateSchemeForm.get('registrationCommRatio')?.dirty &&
+              updateSchemeForm.get('registrationCommRatio')?.hasError('required')&&
+              !updateSchemeForm.get('registrationCommRatio')?.hasError('min')
+            "
+            class="text-danger"
+            >*Field is required.</small
+          >
+          <small
+          *ngIf="
+            updateSchemeForm.get('registrationCommRatio')?.dirty &&
+            updateSchemeForm.get('registrationCommRatio')?.hasError('min')"
+          class="text-danger"
+        >
+          No Negatives Values Accepted.
+        </small>
+      </div>
+  
+      <!-- Installment Commission Ratio -->
+      <div class="mb-3">
+        <input
+          class="form-control form-control-lg"
+          type="number"
+          formControlName="installmentCommRatio"
+          placeholder="EMI COMMISSION PERCENT*"
+          min="0"
+        />
+        <small
+            *ngIf="
+              updateSchemeForm.get('installmentCommRatio')?.dirty &&
+              updateSchemeForm.get('installmentCommRatio')?.hasError('required')&&
+              !updateSchemeForm.get('installmentCommRatio')?.hasError('min')
+            "
+            class="text-danger"
+            >*Field is required.</small
+          >
+          <small
+          *ngIf="
+            updateSchemeForm.get('installmentCommRatio')?.dirty &&
+            updateSchemeForm.get('installmentCommRatio')?.hasError('min')"
+          class="text-danger"
+        >
+          No Negatives Values Accepted.
+        </small>
+      </div>
+  
+      <!-- Required Documents -->
+      <div class="mb-3">
+        <h4>Required Documents:</h4>
+        <ul class="checkbox-list">
+          <li *ngFor="let doc of documents">
+            <input
+              type="checkbox"
+              [id]="doc.id"
+              [value]="doc.value"
+              (change)="onCheckboxChange($event)"
+            />
+            <label [for]="doc.id" class="checkbox-label">{{ doc.label }}</label>
+          </li>
+        </ul>
+      </div>
+  
+      <!-- Buttons -->
+      <div class="row justify-content-between mt-4">
+        <div class="col-md-3">
+          <button type="button" class="btn btn-secondary w-100">Cancel</button>
+        </div>
+        <div class="col-md-3">
+          <button
+            type="button"
+            class="btn btn-primary w-100"
+            (click)="updateScheme()"
+          >
+            Update Scheme
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  
+  
+  
+  <app-footer-other></app-footer-other>
+</div>

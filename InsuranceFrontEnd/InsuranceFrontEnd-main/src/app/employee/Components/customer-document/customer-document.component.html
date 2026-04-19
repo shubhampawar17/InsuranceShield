@@ -1,0 +1,123 @@
+<div class="wrapper">
+<div *ngIf="isEmployee">
+    <app-employee-header></app-employee-header>
+    </div>
+    <div *ngIf="isAdmin">
+        <app-admin-header></app-admin-header>
+    </div> 
+    <div class="top_link" *ngIf="documents.length!=0">
+      <button (click)="goBack()" class="ms-3 mt-2" ><img src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download"
+          alt=""/>Back</button>
+    </div>
+
+<!-- <div class="ms-5 mt-5"><button class="btn btn-danger" (click)="goBack()">Back</button></div>  -->
+<div class="container" *ngIf="documents.length!=0">
+  <div class="row">
+    <div class="pagination-controls ms-4 mb-3 pt-3">
+      <!-- Other pagination elements -->
+      <label for="pageSizeSelect">Page Size:</label>
+      <select
+        id="pageSizeSelect"
+        class="form-control"
+        (change)="onPageSizeChange($event)"
+      >
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <!-- Add more options as needed -->
+      </select>
+    
+    </div>
+  </div>
+  <table id="employeeTable" class="table table-light table-responsive-md table-hover Data-table">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 50px;">Sr.</th>
+        <th scope="col" style="width: 200px;">Document Type</th>
+        <th scope="col" style="width: 250px;">View Document</th>
+        <th scope="col" style="width: 150px;">Action</th>
+    </tr>
+    </thead>
+    <tbody *ngIf="documents.length>0">
+      <tr *ngFor="let doc of documents; let i = index">
+        <td>
+          {{ calculateSRNumber(i) }}
+        </td>
+       
+        <td>{{doc.name}}</td>
+        <td>
+          <button class="btn btn-primary" (click)="downloadedDocument(i)">View</button>
+        </td>
+        <td>
+          <!-- Show approve/reject buttons if status is 0 -->
+          <div *ngIf="doc.status === 0 && isEmployee === true">
+              <button class="btn btn-primary" (click)="updateDocumentedStatus(i, 'approve')">Approve</button>
+              <button class="btn btn-danger" (click)="toggleRejectBox(i)">Reject</button>
+          </div> 
+          <div *ngIf="doc.status === 0 && isAdmin === true">
+            <p>Pending</p>
+        </div> 
+      
+          <!-- Show approved message if status is 1 -->
+          <div *ngIf="doc.status === 1">
+              <p>Approved</p>
+          </div>
+      
+          <!-- Show rejected message and reason input if status is 2 -->
+          <div *ngIf="doc.status === 2">
+              <p>Rejected</p>
+              <p>Reason: {{ doc.note }}</p>
+          </div>
+      
+          <!-- Show text box for rejection reason if status is 2 -->
+          <div *ngIf="doc.showRejectBox">
+              <textarea [(ngModel)]="doc.note" placeholder="Enter rejection reason"></textarea>
+              <button class="btn btn-danger" (click)="submitRejection(i)">Submit</button>
+          </div>
+      </td>
+        
+       
+      </tr>
+    </tbody>
+    <tfoot *ngIf="documents.length==0">
+      <tr class="text-center">
+        <td colspan="4">No Document Found</td>
+      </tr>
+    </tfoot>
+    </table>
+</div>
+<div>
+  <nav aria-label="Page navigation example ">
+    <ul class="pagination justify-content-center">
+      <li class="page-item text-center ms-1" *ngIf="currentPage > 1">
+        <a
+          class="page-link"
+          (click)="changePage(currentPage - 1)"
+          aria-label="Previous"
+        >
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item text-center ms-1" *ngFor="let page of pageNumbers">
+        <a
+          class="page-link"
+          [ngClass]="{ active: currentPage === page }"
+          (click)="changePage(page)"
+          >{{ page }}</a
+        >
+      </li>
+      <li class="page-item text-center ms-1" *ngIf="currentPage < pageNumbers.length">
+        <a
+          class="page-link"
+          (click)="changePage(currentPage + 1)"
+          aria-label="Next"
+        >
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+</div>
+<app-footer-other></app-footer-other>
