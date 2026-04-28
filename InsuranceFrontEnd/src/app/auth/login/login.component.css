@@ -2,23 +2,53 @@ img {
     width: 100%;
   }
   .login {
-    height: 730px;
+    height: 100vh;
     width: 100%;
-    background: radial-gradient(#653d84, #332042);
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 40%, #3b82f6 70%, #6366f1 100%);
     position: relative;
+    overflow: hidden;
+  }
+  .login::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.15);
+    top: -150px;
+    right: -100px;
+    animation: float 6s ease-in-out infinite;
+  }
+  .login::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.1);
+    bottom: -80px;
+    left: -50px;
+    animation: float 8s ease-in-out infinite reverse;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-30px); }
   }
   .login_box {
     width: 900px;
-    height: 520px;
+    height: 540px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 1px 4px 22px -8px #0004;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
     display: flex;
     overflow: hidden;
+    z-index: 10;
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
   .login_box .left {
     width: 45%;
@@ -30,8 +60,13 @@ img {
     height: 100%;
   }
   .left .top_link a {
-    color: #452a5a;
-    font-weight: 400;
+    color: #3b82f6;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    transition: color 0.3s ease;
+  }
+  .left .top_link a:hover {
+    color: #1e3a8a;
   }
   .left .top_link {
     height: 20px;
@@ -48,45 +83,67 @@ img {
   .left h3 {
     text-align: center;
     margin-bottom: 40px;
+    color: #0f172a;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
   }
   .left input {
     border: none;
-    width: 80%;
-    margin: 15px 0px;
-    border-bottom: 1px solid #4f30677d;
-    padding: 7px 9px;
     width: 100%;
+    margin: 15px 0px;
+    border-bottom: 2px solid #e2e8f0;
+    padding: 10px 9px;
     overflow: hidden;
     background: transparent;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.3s ease;
+  }
+  .left input:focus {
+    border-bottom: 2px solid #6366f1;
+    outline: none;
+  }
+  .left input::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
   }
   .left {
-    /* background: linear-gradient(-45deg, #dcd7e0, #fff); */
     background-color: #fff;
   }
   .submit {
     border: none;
-    padding: 15px 50px;
-    border-radius: 8px;
+    padding: 14px 50px;
+    border-radius: 12px;
     display: block;
     margin: auto;
     margin-top: 30px;
-    background: #583672;
+    background: linear-gradient(135deg, #3b82f6, #6366f1);
     color: #fff;
-    font-weight: bold;
-    -webkit-box-shadow: 0px 9px 15px -11px rgba(88, 54, 114, 1);
-    -moz-box-shadow: 0px 9px 15px -11px rgba(88, 54, 114, 1);
-    box-shadow: 0px 9px 15px -11px rgba(88, 54, 114, 1);
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.35);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(99, 102, 241, 0.5);
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
   }
   
   .right {
     background: linear-gradient(
-        212.38deg,
-        rgba(242, 57, 127, 0.7) 0%,
-        rgba(175, 70, 189, 0.71) 100%
+        135deg,
+        rgba(59, 130, 246, 0.85) 0%,
+        rgba(99, 102, 241, 0.9) 50%,
+        rgba(139, 92, 246, 0.85) 100%
       ),
       url(https://img.freepik.com/free-vector/sign-concept-illustration_114360-5375.jpg?size=626&ext=jpg&ga=GA1.1.720691964.1696958566&semt=sph);
+    background-size: cover;
     color: #fff;
     position: relative;
   }
@@ -101,7 +158,8 @@ img {
     width: 100%;
     text-align: center;
     font-size: 50px;
-    font-weight: 500;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
   }
   .right-text h5 {
     display: block;
@@ -109,6 +167,8 @@ img {
     text-align: center;
     font-size: 19px;
     font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    opacity: 0.9;
   }
   
   .right .right-inductor {
@@ -125,5 +185,4 @@ img {
     padding-right: 7px;
     margin-top: -3px;
   }
-  
   
