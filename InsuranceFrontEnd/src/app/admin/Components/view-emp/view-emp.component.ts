@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AdminService } from 'src/app/Services/admin.service';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 @Component({
   selector: 'app-view-emp',
@@ -24,7 +25,7 @@ export class ViewEmpComponent implements OnInit {
   updateEmpForm!: FormGroup;
   pageSize = this.pageSizes[0];
   searchQuery: string | number = '';
-  constructor(private admin: AdminService, private router: Router,private location:Location) { }
+  constructor(private admin: AdminService, private router: Router,private location:Location, private notification: NotificationService) { }
   ngOnInit(): void {
     this.getEmployees();
     this.updateEmpForm = new FormGroup({
@@ -93,7 +94,7 @@ goBack(){
       this.admin.updateEmplyee(empObj).subscribe({
         next: (data) => {
           console.log(data);
-          alert("Updated Successfully")
+          this.notification.showSuccess("Updated Successfully")
           location.reload()
         },
         error: (error: HttpErrorResponse) => {
@@ -123,12 +124,12 @@ goBack(){
     this.admin.deleteEmployee(emp.id).subscribe({
       next: (data) => {
         console.log(data)
-        alert("Deleted Successfully");
+        this.notification.showSuccess("Deleted Successfully");
         location.reload();
 
       },
-      error(error: HttpErrorResponse) {
-        alert("Something went wrong")
+      error: (error: HttpErrorResponse) => {
+        this.notification.showError("Something went wrong")
         console.log(error.message)
       }
     })

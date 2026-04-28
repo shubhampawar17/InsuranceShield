@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { AdminService } from 'src/app/Services/admin.service';
 import { Location } from '@angular/common';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 @Component({
   selector: 'app-view-scheme',
@@ -26,7 +27,7 @@ export class ViewSchemeComponent {
   pageSizes: any=[5,10,15,20,25,30,35,40,45,50];
   isSearch: boolean=false;
 
-  constructor(private admin: AdminService, private route:Router,private activatedroute:ActivatedRoute,private location:Location) {}
+  constructor(private admin: AdminService, private route:Router,private activatedroute:ActivatedRoute,private location:Location, private notification: NotificationService) {}
   ngOnInit(){
     this.planId = this.activatedroute.snapshot.paramMap.get('id');
     if (!this.planId) {
@@ -50,14 +51,14 @@ getSchemes(){
       this.planSchemes=res.body;
       console.log(this.planSchemes)
       if (!Array.isArray(this.planSchemes) || this.planSchemes.length === 0) {
-        alert("No Schemes Found Under this Plan");
+        this.notification.showInfo("No Schemes Found Under this Plan");
         // this.goBack();
         return;
       }
     },
     error:(err:HttpErrorResponse)=>{
       if (!Array.isArray(this.planSchemes) || this.planSchemes.length === 0) {
-        alert("No Schemes Found Under this Plan");
+        this.notification.showInfo("No Schemes Found Under this Plan");
         // this.goBack();
         return;
       }
@@ -110,12 +111,12 @@ Delete(data:any)
 {
   this.admin.deleteScheme(data).subscribe({
     next: (res) => {
-      alert('Scheme Updated successfully');
+      this.notification.showSuccess('Scheme Deleted successfully');
       this.getSchemes(); 
     },
     error: (err) => {
       console.error('Error while deleting scheme:', err);
-      alert('Failed to delete the scheme. Please try again.');
+      this.notification.showError('Failed to delete the scheme. Please try again.');
     },
   });
 }
@@ -124,12 +125,12 @@ ActivateScheme(scheme: any): void {
   scheme.isActive = true; // Update locally for instant UI feedback
   this.admin.updateScheme(scheme).subscribe({
     next: (res) => {
-      alert('Scheme activated successfully.');
+      this.notification.showSuccess('Scheme activated successfully.');
       this.getSchemes(); // Refresh the list if necessary
     },
     error: (err) => {
       console.error('Error activating scheme:', err);
-      alert('Failed to activate the scheme. Please try again.');
+      this.notification.showError('Failed to activate the scheme. Please try again.');
     },
   });
 }

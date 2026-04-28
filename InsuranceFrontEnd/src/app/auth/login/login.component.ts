@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from 'src/app/Services/auth.service';
+import { NotificationService } from 'src/app/Services/notification.service';
 import { ValidateForm } from 'src/app/helper/validateForm';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -31,9 +32,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private snackbar: MatSnackBar,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private notification: NotificationService
   ) {
     this.loginForm = this.fb.group({
       userName: ['', [Validators.required]],
@@ -86,11 +87,7 @@ export class LoginComponent implements OnInit {
     // Validate CAPTCHA
     if (!this.verifyCaptcha(captcha)) {
       // this.captchaError = 'Invalid CAPTCHA. Please try again.';
-      // this.snackbar.open('Invalid CAPTCHA. Please try again.', 'Close', {
-      //   duration: 3000,
-      //   panelClass: ['error-snackbar'],
-      // });
-      alert('Invalid CAPTCHA. Please try again.');
+      this.notification.showError('Invalid CAPTCHA. Please try again.');
       this.refreshCaptcha();
       return; // Halt form submission
     } else {
@@ -102,7 +99,7 @@ export class LoginComponent implements OnInit {
 
       this.auth.login(formData.userName, formData.password).subscribe({
         next: (response) => {
-          this.successMessage = 'Login successful!';
+          this.notification.showSuccess('Login successful!');
           this.errorMessage = '';
 
           this.myToken = response.headers.get('Jwt');
@@ -121,22 +118,15 @@ export class LoginComponent implements OnInit {
             this.router.navigateByUrl('/agent');
           } else {
             this.router.navigateByUrl('/login');
-            this.snackbar.open('Invalid credentials. Please try again.', 'Close', {
-              duration: 3000,
-              panelClass: ['error-snackbar'],
-            });
+            this.notification.showError('Invalid credentials. Please try again.');
           }
         },
         error: (error: HttpErrorResponse) => {
-          alert("Invalid credentials. Please try again");
+          this.notification.showError("Invalid credentials. Please try again");
         },
       });
     } else {
-      this.errorMessage = 'Please fill out the form correctly.';
-      this.snackbar.open('Please fill out the form correctly.', 'Close', {
-        duration: 3000,
-        panelClass: ['error-snackbar'],
-      });
+      this.notification.showError('Please fill out the form correctly.');
     }
   }
 }

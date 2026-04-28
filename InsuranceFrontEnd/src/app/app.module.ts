@@ -23,8 +23,10 @@ import { TableModule } from "primeng/table"
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RazorpayComponent } from './razorpay/razorpay.component';
 import { SampleComponent } from './Samples/sample/sample.component';
-// import { JwtInterceptor } from '@auth0/angular-jwt';
-// import { AuthService } from './Services/auth.service';
+import { LoaderComponent } from './shared/loader/loader.component';
+import { LoaderInterceptor } from './loader.interceptor';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { SampleComponent } from './Samples/sample/sample.component';
     ChangePasswordComponent,
     RazorpayComponent,
     SampleComponent,
+    LoaderComponent
     
   ],
   imports: [
@@ -51,7 +54,8 @@ import { SampleComponent } from './Samples/sample/sample.component';
     MatSnackBarModule,
     BrowserAnimationsModule,
     NoopAnimationsModule,
-    TableModule
+    TableModule,
+    ToastModule
     
     
     
@@ -65,7 +69,13 @@ import { SampleComponent } from './Samples/sample/sample.component';
       provide: HTTP_INTERCEPTORS, 
       useClass: JwtInterceptorInterceptor,
       multi: true
-    }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true
+    },
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

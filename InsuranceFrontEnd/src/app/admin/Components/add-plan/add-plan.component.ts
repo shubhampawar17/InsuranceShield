@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { AdminService } from 'src/app/Services/admin.service';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 import { ValidateForm } from 'src/app/helper/validateForm';
 
@@ -14,7 +15,7 @@ import { ValidateForm } from 'src/app/helper/validateForm';
 export class AddPlanComponent  {
 
     
-  constructor(private admin:AdminService ,private location:Location){}
+  constructor(private admin:AdminService ,private location:Location, private notification: NotificationService){}
  
     addPlanForm=new FormGroup({
       planName:new FormControl('',[Validators.required,ValidateForm.onlyCharactersValidator]),
@@ -29,13 +30,13 @@ export class AddPlanComponent  {
               
               console.log(data)
               this.addPlanForm.reset();
-              alert("Plan Added Successfully") 
+              this.notification.showSuccess("Plan Added Successfully") 
               this.goBack();
             
             },
             error:(error:HttpErrorResponse)=>{
               console.log(error)
-              alert("Plan Name Already Exists");
+              this.notification.showError("Plan Name Already Exists");
               
               this.addPlanForm.reset();
             }
@@ -44,7 +45,7 @@ export class AddPlanComponent  {
         }
         else{
           ValidateForm.validateAllFormFileds(this.addPlanForm);
-          alert("One or more feilds required")  
+          this.notification.showError("One or more fields required")  
         }
        
     
