@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
 import { AdminService } from 'src/app/Services/admin.service';
 import { ValidateForm } from 'src/app/helper/validateForm';
 import { Router } from '@angular/router';
@@ -37,7 +36,7 @@ export class AddAgentComponent {
   addModal:any;
   employeeData:any;
   
-constructor( private admin:AdminService,private router:Router,private location:Location, private notification: NotificationService){
+constructor( private admin:AdminService,private router:Router, private notification: NotificationService){
  
 }
   ngOnInit(): void {
@@ -52,7 +51,7 @@ constructor( private admin:AdminService,private router:Router,private location:L
         next:(data)=>{
           console.log(data)
           this.notification.showDialog("Agent Added Successfully", "Success", "pi pi-check-circle");
-          this.goBack();
+          this.router.navigateByUrl('/employee');
           
         },
         error:(error:HttpErrorResponse)=>{
@@ -70,6 +69,6 @@ constructor( private admin:AdminService,private router:Router,private location:L
     this.addAgentForm.reset()
   }
   goBack(){
-    this.location.back()
+    this.router.navigateByUrl('/employee')
   }
 }

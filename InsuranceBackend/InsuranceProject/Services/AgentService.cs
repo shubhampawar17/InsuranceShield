@@ -35,9 +35,6 @@ namespace InsuranceProject.Services
             };
             _userRepository.Add(user);
 
-            var role = _roleRepository.Get(_roleId);
-            role.Users.Add(user);
-
             agentRegisterDto.UserId = user.Id;
 
             var agent = _mapper.Map<Agent>(agentRegisterDto);
@@ -54,8 +51,16 @@ namespace InsuranceProject.Services
           <p>Looking forward to working with you. :) </p>
           <p>Best regards,<br/>New-Insurance Team</p> ";
 
-            var emailService = new EmailService();
-            emailService.SendEmail(agentRegisterDto.Email, subject, body);
+            try
+            {
+                var emailService = new EmailService();
+                emailService.SendEmail(agentRegisterDto.Email, subject, body);
+            }
+            catch
+            {
+                // Agent creation should not fail if the notification email cannot be delivered.
+            }
+
             return agent.Id;
         }
 
