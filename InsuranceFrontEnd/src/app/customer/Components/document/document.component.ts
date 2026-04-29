@@ -8,6 +8,7 @@ import { CustomerService } from 'src/app/Services/customer.service';
 import { ValidateForm } from 'src/app/helper/validateForm';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class DocumentComponent {
   pageSize = this.pageSizes[0];
   newName: any;
   newUploadedDocuments:any;
-  constructor(private customer:CustomerService,private router:Router,private location:Location,private http:HttpClient){}
+  constructor(private customer:CustomerService,private router:Router,private location:Location,private http:HttpClient, private notification: NotificationService){}
   DocTypeForm!:FormGroup
   jwtHelper=new JwtHelperService()
   isAgent=false
@@ -71,7 +72,7 @@ export class DocumentComponent {
         if (!res ) {
 
           console.error('Customer profile is invalid or missing customerId');
-          alert('Failed to retrieve customer profile. Please try again.');
+          this.notification.showError('Failed to retrieve customer profile. Please try again.');
           return;
         }
   
@@ -104,7 +105,7 @@ export class DocumentComponent {
                 this.pageSize = paginationData.PageSize;
               } catch (error) {
                 console.error('Error parsing X-Pagination header:', error);
-                alert('Error processing pagination data. Please try again.');
+                this.notification.showError('Error processing pagination data. Please try again.');
                 return;
               }
             } else {
@@ -118,13 +119,13 @@ export class DocumentComponent {
           },
           error: (err: HttpErrorResponse) => {
             console.error('Error fetching documents:', err);
-            alert(`Failed to fetch documents: ${err.message || 'Unknown error'}`);
+            this.notification.showError(`Failed to fetch documents: ${err.message || 'Unknown error'}`);
           }
         });
       },
       error: (err: HttpErrorResponse) => {
         console.error('Error fetching customer profile:', err);
-        alert(`Failed to fetch customer profile: ${err.message || 'Unknown error'}`);
+        this.notification.showError(`Failed to fetch customer profile: ${err.message || 'Unknown error'}`);
       }
     });
   }
@@ -177,13 +178,13 @@ export class DocumentComponent {
 
       // Validate file size
       if (selectedFile.size > maxSize) {
-        alert('File size exceeds 5 MB');
+        this.notification.showWarning('File size exceeds 5 MB');
         return;
       }
 
       // Validate file type
       if (!['image/jpeg', 'image/png'].includes(selectedFile.type)) {
-        alert('Invalid file type. Only JPEG and PNG are allowed.');
+        this.notification.showWarning('Invalid file type. Only JPEG and PNG are allowed.');
         return;
       }
 
@@ -216,7 +217,7 @@ export class DocumentComponent {
           name:this.newDocument.controls['name'].value
         }).subscribe({
           next: (res) => 
-            alert("Document Uploaded Successfully"),
+            this.notification.showSuccess("Document Uploaded Successfully"),
             
           error: (err) => console.error('Database error:', err),
         });
@@ -229,11 +230,11 @@ export class DocumentComponent {
     // Pass 'data' to the PUT request body to update the document
     this.http.put("https://localhost:7117/api/Document", data).subscribe(
       (res) => {
-        alert("Updated Successfully");
+        this.notification.showSuccess("Updated Successfully");
         this.getDocuments();// Refresh the page after the update
       },
       (err) => {
-        alert("Something went wrong");
+        this.notification.showError("Something went wrong");
         console.error(err); // Log error for debugging
       }
     );

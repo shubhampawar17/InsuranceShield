@@ -6,6 +6,7 @@ import { ValidateForm } from '../helper/validateForm';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { NotificationService } from '../Services/notification.service';
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
@@ -20,7 +21,7 @@ export class ChangePasswordComponent {
   jwtHelper = new JwtHelperService();
   newRole:string ='';
   
-  constructor(private auth:AuthService,private router:Router,private location:Location){}
+  constructor(private auth:AuthService,private router:Router,private location:Location, private notification: NotificationService){}
   isAdmin=false
   isCustomer=false
   isAgent=false
@@ -50,16 +51,16 @@ export class ChangePasswordComponent {
     this.auth.changePassword(this.changePasswordForm.value, this.newRole).subscribe({
       next: (res) => {
         console.log(res);
-        alert("Password updated successfully.");
+        this.notification.showSuccess("Password updated successfully.");
         this.auth.logOut();
         this.router.navigateByUrl('/');
       },
       error: (err: HttpErrorResponse) => {
         console.error("Error occurred:", err);
         if (err.status === 401) {
-          alert("Unauthorized: Incorrect username or password.");
+          this.notification.showError("Unauthorized: Incorrect username or password.");
         } else {
-          alert("Something went wrong. Please try again later.");
+          this.notification.showError("Something went wrong. Please try again later.");
         }
       },
     });

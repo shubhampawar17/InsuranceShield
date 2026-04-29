@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmployeeService } from 'src/app/Services/employee.service';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 @Component({
   selector: 'app-employee-profile',
@@ -13,7 +14,7 @@ export class EmployeeProfileComponent {
   employeeProfile:any
   employeeData:any
   isEdit:boolean=false
-  constructor(private employee:EmployeeService){}
+  constructor(private employee:EmployeeService, private notification: NotificationService){}
  ngOnInit(){
  this.getEmployeeProfile();
  }
@@ -66,17 +67,17 @@ return true
    this.employee.updateEmployee(this.employeeProfile.body.customer).subscribe({
     next:(res)=>{
    
-      alert("Updated Successfully");
-      location.reload()
+      this.notification.showSuccess("Updated Successfully");
+      setTimeout(() => location.reload(), 1500);
      
     },
     error:(err:HttpErrorResponse)=>{
-      alert("Invalid Details");
+      this.notification.showError("Invalid Details");
     }
    })
   }
   else{
-    alert("Invalid Details! Try Again");
+    this.notification.showError("Invalid Details! Try Again");
   }
 
  }

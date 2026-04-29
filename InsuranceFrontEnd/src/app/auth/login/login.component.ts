@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
 
     if (this.loginForm.valid) {
       const formData = this.loginForm.value;
-
+      
       this.auth.login(formData.userName, formData.password).subscribe({
         next: (response) => {
           this.notification.showSuccess('Login successful!');

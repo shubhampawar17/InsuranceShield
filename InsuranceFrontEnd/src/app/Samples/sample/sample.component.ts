@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CustomerService } from 'src/app/Services/customer.service';
 import { AdminService } from 'src/app/Services/admin.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NotificationService } from 'src/app/Services/notification.service';
 declare var Razorpay:any
 
 @Component({
@@ -26,7 +27,7 @@ export class SampleComponent implements OnInit {
   newDate:any;
   newPolicyForm:any;
 
-  constructor(private router:Router,private route: ActivatedRoute,private customer:CustomerService,private admin:AdminService) 
+  constructor(private router:Router,private route: ActivatedRoute,private customer:CustomerService,private admin:AdminService, private notification: NotificationService) 
   { 
     const today = new Date();
     this.minDate = today.toISOString().split('T')[0];
@@ -144,7 +145,7 @@ export class SampleComponent implements OnInit {
       image: 'https://your-logo-url.com/logo.png', // Optional logo
       handler: (response: any) => {
         // This handler will be called when the payment is successful
-        alert('Payment successful!');
+        this.notification.showSuccess('Payment successful!');
         console.log(response);
         this.UpdatePayment(id);
       },
@@ -195,12 +196,12 @@ this.admin.UpdatePayment(paymentData).subscribe(
       this.UpdatePolicy(); // Call update policy
     } else {
       console.error('Payment update failed:', res.message);
-      alert('Payment update failed: ' + res.message);
+      this.notification.showError('Payment update failed: ' + res.message);
     }
   },
   (error) => {
     console.error('An error occurred while updating payment:', error);
-    alert('An error occurred while updating payment. Please try again later.');
+    this.notification.showError('An error occurred while updating payment. Please try again later.');
   }
 );
   }
@@ -233,19 +234,20 @@ this.admin.UpdatePayment(paymentData).subscribe(
           // If the response indicates success, update the local state or UI
           console.log('Policy updated successfully');
           // alert('Policy updated successfully!');
-          location.reload();
+          this.notification.showSuccess('Policy updated successfully!');
+          setTimeout(() => location.reload(), 1500);
           // Optionally, you can navigate to another page or refresh data
           // this.router.navigate(['/policies']); // Uncomment to navigate to policies page
         } else {
           // If the update fails, handle the failure
           console.error('Policy update failed:', res.message);
-          alert('Policy update failed: ' + res.message);
+          this.notification.showError('Policy update failed: ' + res.message);
         }
       },
       (error) => {
         // Handle any errors during the request
         console.error('An error occurred while updating the policy:', error);
-        alert('An error occurred while updating the policy. Please try again later.');
+        this.notification.showError('An error occurred while updating the policy. Please try again later.');
       }
     );
   }

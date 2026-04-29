@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Location } from '@angular/common';
 import { EmployeeService } from 'src/app/Services/employee.service';
+import { NotificationService } from 'src/app/Services/notification.service';
 declare var window:any
 @Component({
   selector: 'app-view-complaints',
@@ -25,7 +26,7 @@ paginatedEmployees: any[] = [];
 pageSizes: number[] = [5,10,15, 20,25, 30,35,40,45,50];
 complaintResponseForm!:FormGroup;
 pageSize = this.pageSizes[0];
-constructor(private employee: EmployeeService,private location:Location) { }
+constructor(private employee: EmployeeService,private location:Location, private notification: NotificationService) { }
 replyModal:any
 isReply:boolean=false
 toDate:any;
@@ -134,11 +135,11 @@ updateComplaint(){
  
  this.employee.updateQuery(this.complaintToUpdate).subscribe(
   (res)=>{
-    alert('Updated Successfully')
+    this.notification.showSuccess('Updated Successfully')
     this.isReply=true
   },
   (err)=>{
-    alert("Something went wrong")
+    this.notification.showError("Something went wrong")
   }
  )
  this.replyModal.hide()

@@ -12,6 +12,7 @@ import { TableModule } from 'primeng/table';
 import { CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { SharedService } from 'src/app/Services/shared.service';
+import { NotificationService } from 'src/app/Services/notification.service';
 declare var Razorpay: any;
 
 declare var window: any
@@ -45,7 +46,7 @@ export class PolicyComponent implements OnInit {
   Razorpay: any;
  
   
-  constructor(private activatedroute: ActivatedRoute,private admin:AdminService,private sharedService:SharedService, private location:Location,private cd:ChangeDetectorRef, private customer: CustomerService, private fb: FormBuilder, private router: Router) 
+  constructor(private activatedroute: ActivatedRoute,private admin:AdminService,private sharedService:SharedService, private location:Location,private cd:ChangeDetectorRef, private customer: CustomerService, private fb: FormBuilder, private router: Router, private notification: NotificationService) 
   {
     const today = new Date();
     this.minDate = today.toISOString().split('T')[0];
@@ -200,7 +201,7 @@ export class PolicyComponent implements OnInit {
       image: 'https://your-logo-url.com/logo.png', // Optional logo
       handler: (response: any) => {
         // This handler will be called when the payment is successful
-        alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
+        this.notification.showSuccess('Payment successful! Payment ID: ' + response.razorpay_payment_id);
         console.log(response);
         console.log(response.razorpay_order_id);
       },
@@ -286,7 +287,7 @@ export class PolicyComponent implements OnInit {
       // Register claim
       this.customer.registerCliam(claim).subscribe({
         next: (res) => {
-          alert("Claim registered successfully.");
+          this.notification.showSuccess("Claim registered successfully.");
           console.log(res);
   
           // Mark policy as claimed
@@ -299,24 +300,24 @@ export class PolicyComponent implements OnInit {
           this.admin.UpdatePolicy(this.data).subscribe({
             next: (updateRes) => {
               console.log('Policy updated successfully', updateRes);
-              alert('Policy updated successfully!');
-              location.reload();
+              this.notification.showSuccess('Policy updated successfully!');
+              setTimeout(() => location.reload(), 1500);
             },
             error: (error) => {
               console.error('Error while updating the policy:', error);
-              alert('An error occurred while updating the policy. Please try again later.');
+              this.notification.showError('An error occurred while updating the policy. Please try again later.');
             },
           });
         },
         error: (err: HttpErrorResponse) => {
           console.error('Error while registering the claim:', err);
-          alert("Something went wrong while registering the claim.");
+          this.notification.showError("Something went wrong while registering the claim.");
           this.closeModal(this.claimModal);
         },
       });
     } else {
       // Handle invalid form
-      alert("One or more required fields are missing.");
+      this.notification.showWarning("One or more required fields are missing.");
       ValidateForm.validateAllFormFileds(this.ClaimForm);
     }
   }

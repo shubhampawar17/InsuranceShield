@@ -15,7 +15,12 @@ export class LoaderInterceptor implements HttpInterceptor {
   constructor(private loaderService: LoaderService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    this.loaderService.show();
+    if (request.url.toLowerCase().includes('login')) {
+      this.loaderService.show('Signing you in', 'Verifying credentials...');
+    } else {
+      this.loaderService.show('Processing...', 'Please wait a moment');
+    }
+    
     return next.handle(request).pipe(
       finalize(() => this.loaderService.hide())
     );

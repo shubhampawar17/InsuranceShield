@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AdminService } from 'src/app/Services/admin.service';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 @Component({
   selector: 'app-view-agent',
@@ -25,7 +26,7 @@ export class ViewAgentComponent {
   isAdmin=false
   isEmployee=false
   jwtHelper=new JwtHelperService()
-  constructor(private admin: AdminService, private router: Router,private location:Location) { }
+  constructor(private admin: AdminService, private router: Router,private location:Location, private notification: NotificationService) { }
   ngOnInit(): void {
     this.getAgents();
    const decodedToken= this.jwtHelper.decodeToken(localStorage.getItem('token')!);
@@ -134,7 +135,7 @@ export class ViewAgentComponent {
     this.admin.updateAgent(agentObj).subscribe({
       next: (data: any) => {
         console.log(data);
-        alert("Updated Successfully")
+        this.notification.showSuccess("Updated Successfully")
         this.getAgents()
       },
       error: (error: HttpErrorResponse) => {
@@ -146,7 +147,7 @@ export class ViewAgentComponent {
     })
   }
   else{
-    alert("Invalid details! Try Again")
+    this.notification.showError("Invalid details! Try Again")
     this.getAgents();
   }
    agentObj.isEditable = !agentObj.isEditable
@@ -166,8 +167,8 @@ export class ViewAgentComponent {
     this.admin.deleteAgent(agent.id).subscribe({
       next: (data: any) => {
         console.log(data)
-        alert("Deleted Successfully");
-        location.reload();
+        this.notification.showSuccess("Deleted Successfully");
+        setTimeout(() => location.reload(), 1500);
 
       },
       error(error: HttpErrorResponse) {

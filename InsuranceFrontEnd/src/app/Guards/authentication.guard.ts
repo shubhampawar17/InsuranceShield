@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { NotificationService } from '../Services/notification.service';
  
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private notification: NotificationService) { }
  
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -29,7 +30,7 @@ export class AuthGuard implements CanActivate {
           return true; // Token is valid
         }
         else {
-          alert("You don't have permission to access this page.");
+          this.notification.showWarning("You don't have permission to access this page.");
           // Redirect to home if not allowed
           setTimeout(() => {
             localStorage.removeItem('token');
@@ -43,7 +44,7 @@ export class AuthGuard implements CanActivate {
       }
     }
     else {
-      alert("You are logged out! Please log in again.");
+      this.notification.showInfo("You are logged out! Please log in again.");
       // Redirect to login if not authenticated
       setTimeout(() => {
         localStorage.removeItem('token');
