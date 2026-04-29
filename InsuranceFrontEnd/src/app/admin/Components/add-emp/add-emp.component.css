@@ -54,6 +54,13 @@ input.form-control:focus, select.form-control:focus {
 }
 
 /* Button Styling */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 28px;
+}
+
 .action-btn {
   width: 160px !important; /* Standardized width */
   height: 52px; /* Standardized height */
@@ -109,6 +116,11 @@ small.text-danger {
   .container {
     padding: 25px;
     margin: 20px;
+  }
+
+  .form-actions {
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   h3#Label {

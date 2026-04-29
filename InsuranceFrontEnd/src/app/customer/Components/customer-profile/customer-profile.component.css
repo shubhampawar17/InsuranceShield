@@ -30,10 +30,22 @@
     cursor: pointer;
   }
 
-  .submit:hover {
+.submit:hover {
     transform: translateY(-2px);
     box-shadow: 0 12px 35px rgba(99, 102, 241, 0.5);
     background: linear-gradient(135deg, #2563eb, #4f46e5);
+  }
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+.action-submit {
+    width: 180px;
+    margin: 0;
   }
 
   .profile {

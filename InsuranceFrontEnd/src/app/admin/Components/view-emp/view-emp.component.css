@@ -127,31 +127,75 @@ tbody tr:hover td {
 }
 
 /* Action Icons */
-.bi-pencil, .bi-trash, .bi-box-arrow-down, .bi-x {
+.action-column {
+  min-width: 120px;
+  text-align: center;
+}
+
+.action-group {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.action-icon {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
   cursor: pointer;
-  transition: all 0.25s ease;
-  padding: 6px;
-  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-.bi-pencil:hover {
-  background: rgba(59, 130, 246, 0.1);
-  transform: scale(1.15);
+.action-icon i {
+  font-size: 1rem;
+  font-weight: 700;
 }
 
-.bi-trash:hover {
-  background: rgba(239, 68, 68, 0.1);
-  transform: scale(1.15);
+.action-icon:hover {
+  transform: translateY(-1px);
 }
 
-.bi-box-arrow-down:hover {
-  background: rgba(16, 185, 129, 0.1);
-  transform: scale(1.15);
+.action-icon-edit {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.1);
 }
 
-.bi-x:hover {
-  background: rgba(239, 68, 68, 0.1);
-  transform: scale(1.15);
+.action-icon-edit:hover {
+  background: rgba(37, 99, 235, 0.16);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.16);
+}
+
+.action-icon-delete,
+.action-icon-cancel {
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.action-icon-delete:hover,
+.action-icon-cancel:hover {
+  background: rgba(220, 38, 38, 0.16);
+  box-shadow: 0 8px 18px rgba(220, 38, 38, 0.16);
+}
+
+.action-icon-save {
+  color: #059669;
+  background: rgba(5, 150, 105, 0.1);
+}
+
+.action-icon-save:hover {
+  background: rgba(5, 150, 105, 0.16);
+  box-shadow: 0 8px 18px rgba(5, 150, 105, 0.16);
+}
+
+.action-icon:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
 }
 
 /* Add Employee Button */

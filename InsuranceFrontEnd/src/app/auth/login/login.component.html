@@ -13,7 +13,17 @@
                 loginForm.get('userName')?.dirty &&
                 loginForm.get('userName')?.hasError('required')
               " class="text-danger">*UserName is required.</small>
-          <input type="password" placeholder="PASSWORD*" formControlName="password" />
+          <div class="password-field">
+            <input [type]="showPassword ? 'text' : 'password'" placeholder="PASSWORD*" formControlName="password" />
+            <button
+              type="button"
+              class="password-toggle"
+              [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+              (click)="showPassword = !showPassword"
+            >
+              <i [class]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+            </button>
+          </div>
           <small *ngIf="
                 loginForm.get('password')?.dirty &&
                 loginForm.get('password')?.hasError('required')

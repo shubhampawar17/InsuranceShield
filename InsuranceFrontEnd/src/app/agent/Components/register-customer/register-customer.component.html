@@ -133,11 +133,21 @@
           </div>
 
           <div class="col-md-6">
-            <input
-              type="password"
-              formControlName="password"
-              placeholder="PASSWORD*"
-            /><br />
+            <div class="password-field">
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="PASSWORD*"
+              />
+              <button
+                type="button"
+                class="password-toggle"
+                [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+                (click)="showPassword = !showPassword"
+              >
+                <i [class]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+              </button>
+            </div><br />
             <small
               *ngIf="
                 customerSignUpForm.get('password')?.dirty &&
@@ -251,11 +261,21 @@
         </div>
 
         <div class="col-md-12">
-          <input
-            type="password"
-            formControlName="confirmPassword"
-            placeholder="CONFIRM PASSWORD*"
-          /><br />
+          <div class="password-field">
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              formControlName="confirmPassword"
+              placeholder="CONFIRM PASSWORD*"
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              [attr.aria-label]="showConfirmPassword ? 'Hide password' : 'Show password'"
+              (click)="showConfirmPassword = !showConfirmPassword"
+            >
+              <i [class]="showConfirmPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+            </button>
+          </div><br />
           <small
             *ngIf="
               customerSignUpForm.get('confirmPassword')?.dirty &&

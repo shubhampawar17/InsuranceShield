@@ -21,6 +21,7 @@ import { Observable } from 'rxjs';
 export class LoginComponent implements OnInit {
   
   loginForm: FormGroup;
+  showPassword = false;
   successMessage: string = '';
   errorMessage: string = '';
   captchaError: string = ''; // Field-level error message for CAPTCHA

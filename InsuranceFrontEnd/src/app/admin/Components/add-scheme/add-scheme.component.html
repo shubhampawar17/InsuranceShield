@@ -366,26 +366,22 @@
     </form>
   
     <!-- Buttons -->
-    <div class="row mt-4">
-      <div class="col-md-6 text-end">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-        >
-          Close
-        </button>
-      </div>
-      <div class="col-md-6 text-start">
-        <button
-          id="save"
-          type="button"
-          class="btn btn-primary"
-          (click)="addScheme()"
-        >
-          Add Scheme
-        </button>
-      </div>
+    <div class="form-actions">
+      <button
+        type="button"
+        class="btn btn-secondary action-btn"
+        data-bs-dismiss="modal"
+      >
+        Close
+      </button>
+      <button
+        id="save"
+        type="button"
+        class="btn btn-primary action-btn"
+        (click)="addScheme()"
+      >
+        Add Scheme
+      </button>
     </div>
   </div>
   

@@ -89,23 +89,29 @@ const routes: Routes = [
     component: AdminDashboardComponent,canActivate:[AuthGuard],data:{roles:['ADMIN']}
   },
   {
-    path: 'admin/viewEmployee', component: ViewEmpComponent
+    path: 'admin/viewEmployee', component: ViewEmpComponent,
+    canActivate:[AuthGuard],data:{roles:['ADMIN']}
   },
   {
-  path:'admin/addEmployee',component:AddEmpComponent
+  path:'admin/addEmployee',component:AddEmpComponent,
+  canActivate:[AuthGuard],data:{roles:['ADMIN']}
   },
   {
-    path: 'admin/viewAgent', component: ViewAgentComponent
+    path: 'admin/viewAgent', component: ViewAgentComponent,
+    canActivate:[AuthGuard],data:{roles:['ADMIN']}
   },
   {
-    path: 'employee/viewAgent', component: ViewAgentComponent
+    path: 'employee/viewAgent', component: ViewAgentComponent,
+    canActivate:[AuthGuard],data:{roles:['EMPLOYEE']}
   }
   ,
   {
-    path: 'admin/viewPlan', component: ViewPlanComponent
+    path: 'admin/viewPlan', component: ViewPlanComponent,
+    canActivate:[AuthGuard],data:{roles:['ADMIN']}
   },
   {
-    path: 'admin/addPlan', component: AddPlanComponent
+    path: 'admin/addPlan', component: AddPlanComponent,
+    canActivate:[AuthGuard],data:{roles:['ADMIN']}
   },
   {
     path: 'auth', component: CustomerRegisterComponent,
@@ -116,7 +122,8 @@ const routes: Routes = [
   ,
  
   {
-    path: 'admin/viewScheme/:id', component: ViewSchemeComponent
+    path: 'admin/viewScheme/:id', component: ViewSchemeComponent,
+    canActivate:[AuthGuard],data:{roles:['ADMIN']}
   },
   {
     path: 'dashboard/changePassword', component: ChangePasswordComponent
@@ -164,7 +171,8 @@ const routes: Routes = [
     path: 'employee/customers', component: CustomerDataComponent
   },
   {
-    path: 'employee/addagent', component: AddAgentComponent
+    path: 'employee/addagent', component: AddAgentComponent,
+    canActivate:[AuthGuard],data:{roles:['EMPLOYEE']}
   },
   {
     path: 'admin/customers', component: CustomerDataComponent
@@ -186,7 +194,8 @@ const routes: Routes = [
    },
 
   {
-    path: 'customer/agents', component: ViewAgentsComponent
+    path: 'customer/agents', component: ViewAgentsComponent,
+    canActivate:[AuthGuard],data:{roles:['CUSTOMER']}
   },
 
   {

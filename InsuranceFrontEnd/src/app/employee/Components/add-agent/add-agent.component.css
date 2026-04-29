@@ -88,6 +88,18 @@ button.btn-secondary:hover {
   transform: translateY(-2px);
 }
 
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.action-btn {
+  width: 180px !important;
+  margin-top: 0 !important;
+}
+
 small.text-danger {
   color: #ef4444;
   font-size: 0.8rem;

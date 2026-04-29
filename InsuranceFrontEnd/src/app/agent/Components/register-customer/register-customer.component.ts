@@ -16,6 +16,8 @@ import { NotificationService } from 'src/app/Services/notification.service';
 export class RegisterCustomerComponent implements OnInit {
   token: any = '';
   customerSignUpForm!: any;
+  showPassword = false;
+  showConfirmPassword = false;
   customerObj: any;
   agentProfile: any={};
   maxDate!: string; 

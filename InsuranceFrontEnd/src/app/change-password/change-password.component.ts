@@ -18,6 +18,8 @@ export class ChangePasswordComponent {
     password:new FormControl('',Validators['required']),
     newPassword:new FormControl('',[Validators.required,ValidateForm.passwordPatternValidator])
   });
+  showCurrentPassword = false;
+  showNewPassword = false;
   jwtHelper = new JwtHelperService();
   newRole:string ='';
   

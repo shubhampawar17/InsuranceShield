@@ -13,6 +13,8 @@ import { NotificationService } from 'src/app/Services/notification.service';
   styleUrls: ['./add-agent.component.css']
 })
 export class AddAgentComponent {
+  showPassword = false;
+
   addAgentForm=new FormGroup({
     firstName:new FormControl('',[Validators.required,ValidateForm.onlyCharactersValidator,Validators.minLength(3)]),
     lastName:new FormControl('',[Validators.required,ValidateForm.onlyCharactersValidator]),

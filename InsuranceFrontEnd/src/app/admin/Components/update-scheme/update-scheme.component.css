@@ -42,6 +42,17 @@ button.w-100 {
   width: 100%;
 }
 
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.action-btn {
+  width: 180px !important;
+}
+
 button:hover {
   opacity: 0.8;
   transition: opacity 0.3s;
@@ -102,6 +113,11 @@ button.btn-primary:hover {
 @media (max-width: 768px) {
   .custom-form {
     padding: 15px;
+  }
+
+  .form-actions {
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   button {

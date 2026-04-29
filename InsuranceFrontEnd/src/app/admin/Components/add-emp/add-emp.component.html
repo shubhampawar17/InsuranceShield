@@ -58,12 +58,22 @@
       </div>
   
       <div class="mb-3">
-        <input
-          type="password"
-          formControlName="password"
-          placeholder="Password*"
-          class="form-control"
-        />
+        <div class="password-field">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="Password*"
+            class="form-control"
+          />
+          <button
+            type="button"
+            class="password-toggle"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+            (click)="showPassword = !showPassword"
+          >
+            <i [class]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+          </button>
+        </div>
         <small *ngIf="addEmpForm.get('password')?.dirty && addEmpForm.get('password')?.hasError('required')" class="text-danger">
           *Password is required.
         </small>
@@ -114,15 +124,13 @@
         </small>
       </div>
   
-      <div class="row mt-4">
-        <div class="col d-flex gap-3 justify-content-end">
-          <button type="button" class="btn btn-secondary action-btn" (click)="OnCancel()">
-            Cancel
-          </button>
-          <button id="save" type="button" class="btn btn-primary action-btn" (click)="addEmp()">
-            Register
-          </button>
-        </div>
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary action-btn" (click)="OnCancel()">
+          Cancel
+        </button>
+        <button id="save" type="button" class="btn btn-primary action-btn" (click)="addEmp()">
+          Register
+        </button>
       </div>
     </form>
   </div>

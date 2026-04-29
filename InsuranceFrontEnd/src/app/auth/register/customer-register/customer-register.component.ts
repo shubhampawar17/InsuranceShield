@@ -14,6 +14,8 @@ export class CustomerRegisterComponent {
 
   token: any = '';
   customerSignUpForm!: FormGroup
+  showPassword = false;
+  showConfirmPassword = false;
   customerObj: any;
   maxDate!: string;
   fieldErrors = {

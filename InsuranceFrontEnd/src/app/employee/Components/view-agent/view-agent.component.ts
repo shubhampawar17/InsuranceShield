@@ -31,13 +31,8 @@ export class ViewAgentComponent {
     this.getAgents();
    const decodedToken= this.jwtHelper.decodeToken(localStorage.getItem('token')!);
    const role: string = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-   if(role==='EMPLOYEE')
-   {
-    this.isEmployee=true
-   }
-   else{
-    this.isAdmin=true
-   }
+   this.isEmployee = role === 'EMPLOYEE';
+   this.isAdmin = role === 'ADMIN';
 
   }
   goBack(){

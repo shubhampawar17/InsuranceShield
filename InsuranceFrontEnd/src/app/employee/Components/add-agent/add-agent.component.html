@@ -29,7 +29,17 @@
       </div>
   
       <div class="mb-3">
-        <input type="password" formControlName="password" class="form-control" placeholder="PASSWORD*" />
+        <div class="password-field">
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control" placeholder="PASSWORD*" />
+          <button
+            type="button"
+            class="password-toggle"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+            (click)="showPassword = !showPassword"
+          >
+            <i [class]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+          </button>
+        </div>
         <small *ngIf="addAgentForm.get('password')?.dirty && addAgentForm.get('password')?.hasError('required')" class="text-danger">*Password is required.</small>
         <small *ngIf="addAgentForm.get('password')?.dirty && addAgentForm.get('password')?.hasError('passwordValidator')" class="text-danger" [innerHTML]="addAgentForm.get('password')?.getError('passwordValidator').message"></small>
       </div>
@@ -70,13 +80,9 @@
       </div>
     </form>
   
-    <div class="row">
-      <div class="col-md-4 ms-2">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCancel()">Cancel</button>
-      </div>
-      <div class="col-md-4">
-        <button id="save" type="button" class="btn btn-primary" (click)="addAgent()">Register</button>
-      </div>
+    <div class="form-actions">
+      <button type="button" class="btn btn-secondary action-btn" data-bs-dismiss="modal" (click)="onCancel()">Cancel</button>
+      <button id="save" type="button" class="btn btn-primary action-btn" (click)="addAgent()">Register</button>
     </div>
   </div>
   

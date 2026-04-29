@@ -14,6 +14,7 @@ import { NotificationService } from 'src/app/Services/notification.service';
   styleUrls: ['./add-emp.component.css']
 })
 export class AddEmpComponent {
+  showPassword = false;
 
   addEmpForm=new FormGroup({
     firstName:new FormControl('',[Validators.required,ValidateForm.onlyCharactersValidator]),

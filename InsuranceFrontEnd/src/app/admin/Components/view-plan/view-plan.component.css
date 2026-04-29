@@ -1,5 +1,20 @@
 /* ===== PREMIUM TABLE & SEARCH STYLING ===== */
 
+/* Page Layout */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #0f172a;
+}
+
 /* Search Bar */
 .row {
   margin: 20px 0;
