@@ -10,9 +10,9 @@ export class AgentDashboardComponent {
   agentProfile:any={}
   constructor(private agent:AgentService)
   {}
-  ngOnInit(){
-    this.getAgentProfile();
-  }
+  // ngOnInit(){
+  //   this.getAgentProfile();
+  // }
  getAgentProfile(){
   this.agent.getProfile().subscribe(
     (res)=>{
