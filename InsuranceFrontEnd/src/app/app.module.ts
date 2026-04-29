@@ -26,7 +26,8 @@ import { SampleComponent } from './Samples/sample/sample.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { LoaderInterceptor } from './loader.interceptor';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -55,12 +56,8 @@ import { MessageService } from 'primeng/api';
     BrowserAnimationsModule,
     NoopAnimationsModule,
     TableModule,
-    ToastModule
-    
-    
-    
-    
-    
+    ToastModule,
+    ConfirmDialogModule
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -75,7 +72,8 @@ import { MessageService } from 'primeng/api';
       useClass: LoaderInterceptor,
       multi: true
     },
-    MessageService
+    MessageService,
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })

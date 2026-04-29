@@ -11,14 +11,16 @@
     </button>
   </div>
   <div class="container" id="addPlan">
-    <h5 class="heading" id="exampleModalLabel">Register Insurance Plan</h5>
+    <h3 class="heading" id="exampleModalLabel">Register Insurance Plan</h3>
 
     <form [formGroup]="addPlanForm">
       <div class="row">
-        <div class="col">
+        <div class="col text-center">
           <label for="PlanName" class="form-label">Plan Name</label>
           <input
             type="text"
+            class="form-control mx-auto"
+            style="max-width: 450px;"
             formControlName="planName"
             placeholder=" Enter Plan Name"
             aria-label="Plan name"

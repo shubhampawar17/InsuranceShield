@@ -6,6 +6,7 @@ import { AgentService } from 'src/app/Services/agent.service';
 import { AuthService } from 'src/app/Services/auth.service';
 import { ValidateForm } from 'src/app/helper/validateForm';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 @Component({
   selector: 'app-register-customer',
@@ -23,7 +24,7 @@ export class RegisterCustomerComponent implements OnInit {
     email: '',
     mobileNumber: ''
   }
-  constructor(private auth: AuthService, private location:Location,private router:Router, private fb: FormBuilder,private agent:AgentService) {
+  constructor(private auth: AuthService, private location:Location,private router:Router, private fb: FormBuilder,private agent:AgentService, private notification: NotificationService) {
     const today = new Date();
     this.maxDate = today.toISOString().split('T')[0];
    }
@@ -119,17 +120,17 @@ export class RegisterCustomerComponent implements OnInit {
     if (this.customerSignUpForm.valid) {
       if(this.fieldErrors.username)
         {
-          alert('Username already exists.');
+          this.notification.showDialog('Username already exists.', 'Warning', 'pi pi-exclamation-circle');
           return;
         }
       if(this.fieldErrors.email)
       {
-        alert('Email already exists.');
+        this.notification.showDialog('Email already exists.', 'Warning', 'pi pi-exclamation-circle');
         return;
       }
       if(this.fieldErrors.mobileNumber)
       {
-        alert('Mobile number already exists.');
+        this.notification.showDialog('Mobile number already exists.', 'Warning', 'pi pi-exclamation-circle');
         return;
       }
       this.customerSignUpForm.get('agentId')?.setValue(this.agentProfile.body.customer['id']);
@@ -140,17 +141,17 @@ export class RegisterCustomerComponent implements OnInit {
         next: (data) => {
           console.log(data)
           this.customerSignUpForm.reset();
-          alert("Registered Successfully")
+          this.notification.showDialog('Customer Registered Successfully', 'Success', 'pi pi-check-circle');
           this.router.navigateByUrl('/agent');
         },
         error: (error: HttpErrorResponse) => {
-          alert("Registration Unsuccessful")
+          this.notification.showDialog('Registration Unsuccessful', 'Error', 'pi pi-exclamation-triangle');
         }
       })
     }
     else {
       ValidateForm.validateAllFormFileds(this.customerSignUpForm);
-      alert("One or more feilds required")
+      this.notification.showDialog('One or more fields required', 'Warning', 'pi pi-exclamation-circle');
     }
   }
   goBack():void{

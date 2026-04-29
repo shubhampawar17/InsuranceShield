@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { AdminService } from 'src/app/Services/admin.service';
 import { ValidateForm } from 'src/app/helper/validateForm';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 @Component({
   selector: 'app-add-agent',
@@ -34,7 +35,7 @@ export class AddAgentComponent {
   addModal:any;
   employeeData:any;
   
-constructor( private admin:AdminService,private router:Router,private location:Location){
+constructor( private admin:AdminService,private router:Router,private location:Location, private notification: NotificationService){
  
 }
   ngOnInit(): void {
@@ -48,19 +49,19 @@ constructor( private admin:AdminService,private router:Router,private location:L
       this.admin.addAgent(this.addAgentForm.value).subscribe({
         next:(data)=>{
           console.log(data)
-          alert("Added Successfully")
+          this.notification.showDialog("Agent Added Successfully", "Success", "pi pi-check-circle");
           this.goBack();
           
         },
         error:(error:HttpErrorResponse)=>{
-          alert("Agent Not Added")
+          this.notification.showDialog("Agent Not Added", "Error", "pi pi-exclamation-triangle");
           console.log(error.message)
         }
       })
     }
     else{
       ValidateForm.validateAllFormFileds(this.addAgentForm);
-      alert("Please follow the highlighted instructions")
+      this.notification.showDialog("Please follow the highlighted instructions", "Warning", "pi pi-exclamation-circle");
     }
   }
   onCancel(){

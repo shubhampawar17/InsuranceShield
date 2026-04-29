@@ -4,6 +4,7 @@ import { AgentService } from 'src/app/Services/agent.service';
 import { CustomerService } from 'src/app/Services/customer.service';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 declare var window:any
 @Component({
@@ -24,7 +25,7 @@ export class ComissionComponent {
   customerData:any={}
   totalCommission:number=0
   agentProfile: any;
-  constructor(private agent:AgentService,private http:HttpClient,private customer:CustomerService,private location:Location){}
+  constructor(private agent:AgentService,private http:HttpClient,private customer:CustomerService,private location:Location, private notification: NotificationService){}
   ngOnInit(){
   this.getProfile()
   
@@ -136,11 +137,11 @@ withdrawCommission(commission:any) {
   this.updateCommissionStatus(commission).subscribe(
     (response) => {
       console.log('Commission status updated successfully', response);
-      alert('Commission withdrawn successfully!');
+      this.notification.showDialog('Commission withdrawn successfully!', 'Success', 'pi pi-check-circle');
     },
     (error) => {
       console.error('Error updating commission status:', error);
-      alert('Something went wrong while updating the commission status.');
+      this.notification.showDialog('Something went wrong while updating the commission status.', 'Error', 'pi pi-exclamation-triangle');
     }
   );
 }

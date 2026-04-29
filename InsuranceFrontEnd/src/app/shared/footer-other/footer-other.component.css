@@ -2,5 +2,38 @@
   background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #6366f1 100%) !important;
   color: white;
   box-shadow: 0 -4px 20px rgba(30, 58, 138, 0.2);
-  margin-top: auto; /* Pushes footer to the bottom if in a flex container */
+  margin-top: auto;
+  padding: 0 !important;
+}
+
+.footer .text-center {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  padding: 16px !important;
+  background: rgba(0, 0, 0, 0.15) !important;
+}
+
+.footer a {
+  color: #fff !important;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.footer a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #fff;
+  transition: width 0.3s ease;
+}
+
+.footer a:hover::after {
+  width: 100%;
 }

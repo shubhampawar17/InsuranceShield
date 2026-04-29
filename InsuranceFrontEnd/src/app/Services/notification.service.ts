@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
 
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
+  ) {}
 
   showSuccess(message: string, summary: string = 'Success') {
     this.messageService.add({ severity: 'success', summary: summary, detail: message });
@@ -22,5 +25,17 @@ export class NotificationService {
 
   showWarning(message: string, summary: string = 'Warning') {
     this.messageService.add({ severity: 'warn', summary: summary, detail: message });
+  }
+
+  showDialog(message: string, header: string = 'Alert', icon: string = 'pi pi-info-circle', acceptLabel: string = 'OK') {
+    this.confirmationService.confirm({
+      message: message,
+      header: header,
+      icon: icon,
+      acceptVisible: true,
+      rejectVisible: false,
+      acceptLabel: acceptLabel,
+      accept: () => {}
+    });
   }
 }

@@ -5,6 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { CustomerService } from 'src/app/Services/customer.service';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 @Component({
   selector: 'app-customer-document',
@@ -21,7 +22,7 @@ export class CustomerDocumentComponent {
   pageSizes: number[] = [5, 10, 20, 30];
   totalDocumentCount = 0;
   pageSize = this.pageSizes[0];
-  constructor(private customer: CustomerService,private http:HttpClient, private activatedroute: ActivatedRoute,private location:Location) { }
+  constructor(private customer: CustomerService,private http:HttpClient, private activatedroute: ActivatedRoute,private location:Location, private notification: NotificationService) { }
   isEmployee = false
   isAdmin = false
   jwtHelper = new JwtHelperService()
@@ -57,7 +58,7 @@ goBack(){
         this.documents = response.body;
         console.log(this.documents);
         if (!Array.isArray(this.documents) || this.documents.length === 0) {
-          alert("No Documents Found");
+          this.notification.showDialog('No Documents Found', 'Info', 'pi pi-info-circle');
           this.goBack();
           return;
         }
@@ -66,7 +67,7 @@ goBack(){
       },
       error: (err: HttpErrorResponse) => {
         if (!Array.isArray(this.documents) || this.documents.length === 0) {
-          alert("No Documents Found");
+          this.notification.showDialog('No Documents Found', 'Info', 'pi pi-info-circle');
           this.goBack();
           return;
         }
@@ -118,11 +119,11 @@ updateDocumentStatus(data: any) {
   // Pass 'data' to the PUT request body to update the document
   this.http.put("https://localhost:7117/api/Document", data).subscribe(
     (res) => {
-      alert("Updated Successfully");
+      this.notification.showDialog('Updated Successfully', 'Success', 'pi pi-check-circle');
       this.getDocuments();// Refresh the page after the update
     },
     (err) => {
-      alert("Something went wrong");
+      this.notification.showDialog('Something went wrong', 'Error', 'pi pi-exclamation-triangle');
       console.error(err); // Log error for debugging
     }
   );
@@ -152,7 +153,7 @@ updateDocumentStatus(data: any) {
       console.log('Rejection reason:', this.documents[i].note);
       this.updateDocumentStatus(this.documents[i]);
     } else {
-      alert('Please enter a rejection reason');
+      this.notification.showDialog('Please enter a rejection reason', 'Warning', 'pi pi-exclamation-circle');
     }
   }
 

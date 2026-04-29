@@ -1,80 +1,109 @@
 <div class="container">
-  <div class="row row-cols-1 row-cols-md-4 g-2">
+  <h2 class="dashboard-title">Welcome to Insurance Shield</h2>
+  <p class="dashboard-subtitle">Here's an overview of your business at a glance</p>
+
+  <div class="row row-cols-2 row-cols-md-4 g-3">
     <div class="col">
-      <div class="card m-2 text-center">
+      <div class="card">
         <a href="/admin/customers">
-          <img
-            src="../assets/customerLogo.png"
-            class="card-img-top"
-            alt="..."
-          />
-          <h5 class="card-title">Customers</h5></a
-        >
-        <p>Total: {{ totalCustomerCount }}</p>
+          <div class="card-icon-wrapper">
+            <img src="../assets/customerLogo.png" alt="Customers" />
+          </div>
+          <h5 class="card-title">Customers</h5>
+        </a>
+        <span class="card-count">{{ totalCustomerCount }}</span>
+        <p>Total registered</p>
       </div>
     </div>
 
     <div class="col">
-      <div class="card m-2 text-center">
+      <div class="card">
         <a href="/admin/viewPlan">
-          <img src="../assets/plan.png" class="card-img-top" alt="..." />
-          <h5 class="card-title">Insurance Plans</h5></a
-        >
-        <p>Total: {{ totalPlanCount }}</p>
+          <div class="card-icon-wrapper">
+            <img src="../assets/plan.png" alt="Plans" />
+          </div>
+          <h5 class="card-title">Insurance Plans</h5>
+        </a>
+        <span class="card-count">{{ totalPlanCount }}</span>
+        <p>Active plans</p>
       </div>
     </div>
+
     <div class="col">
-      <div class="card m-2 text-center">
+      <div class="card">
         <a href="/admin/viewAgent">
-          <img src="../assets/agent.png" class="card-img-top" alt="..." />
-          <h5 class="card-title">Agents</h5></a
-        >
-        <p>Total: {{ totalAgentCount }}</p>
+          <div class="card-icon-wrapper">
+            <img src="../assets/agent.png" alt="Agents" />
+          </div>
+          <h5 class="card-title">Agents</h5>
+        </a>
+        <span class="card-count">{{ totalAgentCount }}</span>
+        <p>Total agents</p>
       </div>
     </div>
+
     <div class="col">
-      <div class="card m-2 text-center">
+      <div class="card">
         <a href="admin/viewEmployee">
-          <img src="../assets/employee.png" class="card-img-top" alt="..." />
-          <h5 class="card-title">Employees</h5></a
-        >
-        <p>Total: {{ totalEmployeeCount }}</p>
+          <div class="card-icon-wrapper">
+            <img src="../assets/employee.png" alt="Employees" />
+          </div>
+          <h5 class="card-title">Employees</h5>
+        </a>
+        <span class="card-count">{{ totalEmployeeCount }}</span>
+        <p>Team members</p>
       </div>
     </div>
+
     <div class="col">
-      <div class="card m-2 text-center">
+      <div class="card">
         <a href="/admin/cliams">
-          <img src="../assets/claim.png" class="card-img-top" alt="..." />
-          <h5 class="card-title">Claims</h5></a
-        >
-        <p>Total: {{ totalClaimCount }}</p>
+          <div class="card-icon-wrapper">
+            <img src="../assets/claim.png" alt="Claims" />
+          </div>
+          <h5 class="card-title">Claims</h5>
+        </a>
+        <span class="card-count">{{ totalClaimCount }}</span>
+        <p>Total claims</p>
       </div>
     </div>
+
     <div class="col">
-      <div class="card m-2 text-center">
+      <div class="card">
         <a href="/admin/complaints">
-          <img src="../assets/complaint.png" class="card-img-top" alt="..." />
-          <h5 class="card-title">Complaints</h5></a
-        >
-        <p>Total: {{ totalComplaintCount }}</p>
+          <div class="card-icon-wrapper">
+            <img src="../assets/complaint.png" alt="Complaints" />
+          </div>
+          <h5 class="card-title">Complaints</h5>
+        </a>
+        <span class="card-count">{{ totalComplaintCount }}</span>
+        <p>Open complaints</p>
       </div>
     </div>
+
     <div class="col">
-      <div class="card m-2 text-center">
+      <div class="card">
         <a href="/admin/commissions/withdraw">
-          <img src="../assets/money.png" class="card-img-top" alt="..." />
-          <h5 class="card-title">Withdraw</h5></a
-        >
-        <p>Total: {{ totalCommissionCount }}</p>
+          <div class="card-icon-wrapper">
+            <img src="../assets/money.png" alt="Withdrawals" />
+          </div>
+          <h5 class="card-title">Withdrawals</h5>
+        </a>
+        <span class="card-count">{{ totalCommissionCount }}</span>
+        <p>Commission requests</p>
       </div>
     </div>
+
     <div class="col">
-      <div class="card m-2 text-center">
+      <div class="card">
         <a href="/admin/payments">
-          <img src="../assets/payment.png" class="card-img-top" alt="..." />
-          <h5 class="card-title">Payments</h5></a
-        >
-        <p>Total:{{ totalPaymentCount }}</p>
+          <div class="card-icon-wrapper">
+            <img src="../assets/payment.png" alt="Payments" />
+          </div>
+          <h5 class="card-title">Payments</h5>
+        </a>
+        <span class="card-count">{{ totalPaymentCount }}</span>
+        <p>Total transactions</p>
       </div>
     </div>
   </div>

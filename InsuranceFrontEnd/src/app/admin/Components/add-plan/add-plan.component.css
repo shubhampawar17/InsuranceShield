@@ -10,30 +10,31 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-h3#Label {
+h3.heading {
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   color: #0f172a;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
   letter-spacing: -0.5px;
+  font-size: 1.75rem; /* Large, attractive size */
 }
 
 label {
     font-weight: 600;
-    color: #475569;
+    color: #334155;
     font-family: 'Inter', sans-serif;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     display: block;
-    font-size: 0.9rem;
+    font-size: 1rem; /* Increased from 0.9rem */
 }
 
 input.form-control {
   width: 100%;
-  padding: 12px 16px;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  font-size: 14px;
+  padding: 14px 20px; /* Increased padding */
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  font-size: 16px; /* Increased from 14px */
   color: #1e293b;
   font-family: 'Inter', sans-serif;
   transition: all 0.3s ease;
@@ -48,8 +49,8 @@ input.form-control:focus {
 }
 
 .action-btn {
-  width: 140px !important; /* Force identical width */
-  height: 48px; /* Force identical height */
+  width: 160px !important; /* Standardized width */
+  height: 52px; /* Standardized height */
   display: flex;
   align-items: center;
   justify-content: center;

@@ -8,7 +8,7 @@
       />Back
     </button>
   </div>
-  <div class="container" id="addEmp">
+  <div class="container main-content" id="addEmp">
     <h3 id="Label">Employee Registration</h3>
   
     <form [formGroup]="addEmpForm">
@@ -114,14 +114,12 @@
         </small>
       </div>
   
-      <div class="row">
-        <div class="col-md-4 ms-2 mb-2">
-          <button type="button" class="btn btn-secondary" (click)="OnCancel()">
+      <div class="row mt-4">
+        <div class="col d-flex gap-3 justify-content-end">
+          <button type="button" class="btn btn-secondary action-btn" (click)="OnCancel()">
             Cancel
           </button>
-        </div>
-        <div class="col-md-4 mb-2">
-          <button id="save" type="button" class="btn btn-primary" (click)="addEmp()">
+          <button id="save" type="button" class="btn btn-primary action-btn" (click)="addEmp()">
             Register
           </button>
         </div>
@@ -129,5 +127,5 @@
     </form>
   </div>
   
+  <app-footer-other></app-footer-other>
 </div>
-<app-footer-other></app-footer-other>
