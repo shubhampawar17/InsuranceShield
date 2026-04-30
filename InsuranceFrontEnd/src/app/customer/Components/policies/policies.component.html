@@ -1,8 +1,9 @@
 <div class="wrapper">
 <app-customer-header></app-customer-header>
-<div class="top_link" *ngIf="this.policies.length!=0">
-  <button (click)="goBack()" class="ms-3 mt-2" ><img src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download"
-      alt=""/>Back</button>
+<div class="container">
+  <app-page-header backClassName="ms-1">
+    <h2 page-title class="page-title m-0">Policies</h2>
+  </app-page-header>
 </div>
 <div class="btn-group switch switchBtn" role="group" aria-label="Button switch" *ngIf="this.policies.length!=0">
  <div>

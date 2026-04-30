@@ -2,12 +2,7 @@
   <div class="container">
     <div class="left">
       <div class="top_link">
-        <a href="/"
-          ><img
-            src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download"
-            alt=""
-          />Return home</a
-        >
+        <app-back-button label="Return home" ariaLabel="Return home" fallbackUrl="/"></app-back-button>
       </div>
       <h3>Registration Form</h3>
       <form [formGroup]="customerSignUpForm" (ngSubmit)="customerSignUp()">

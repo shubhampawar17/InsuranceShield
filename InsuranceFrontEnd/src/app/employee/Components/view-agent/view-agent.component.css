@@ -16,11 +16,7 @@
   padding: 0 16px 24px;
 }
 
-.page-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin: 12px 0 8px;
-}
+/* page actions are now handled by shared page header */
 
 #button {
   width: auto;

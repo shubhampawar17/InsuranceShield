@@ -1,17 +1,9 @@
 <div class="wrapper">
   <app-admin-header></app-admin-header>
-  <div class="top_link">
-    <button (click)="goBack()" class="ms-3 mt-2">
-      <img
-        src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download"
-        alt=""
-      />Back
-    </button>
-  </div>
   <div class="container p-4">
-    <h5 class="modal-title mb-4 text-center" id="exampleModalLabel">
-      Add Scheme Details
-    </h5>
+    <app-page-header backClassName="ms-1">
+      <h2 page-title class="page-title m-0">Add Scheme Details</h2>
+    </app-page-header>
     <form [formGroup]="addSchemeForm">
       <div class="row">
         <!-- Scheme Name -->

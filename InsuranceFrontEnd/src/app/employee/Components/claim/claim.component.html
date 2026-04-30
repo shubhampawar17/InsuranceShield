@@ -7,16 +7,11 @@
     <app-admin-header></app-admin-header>
   </div>
 
-  <!-- Back Button -->
-  <div class="top_link" *ngIf="this.claimData.length!=0">
-    <button (click)="goBack()" class="ms-3 mt-2 btn btn-light border-0">
-      <img src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download" alt="" />
-      Back
-    </button>
-  </div>
-
   <!-- Main Content Section -->
   <div class="container" *ngIf="this.claimData.length!=0">
+    <app-page-header backClassName="ms-1">
+      <h2 page-title class="page-title m-0">Claims</h2>
+    </app-page-header>
     <!-- Filters and Page Size Selection -->
     <div class="row mb-3 pt-3">
       <div class="col-md-6">

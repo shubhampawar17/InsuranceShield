@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
+import { NotificationService } from 'src/app/Services/notification.service';
 import { ValidateForm } from 'src/app/helper/validateForm';
 
 @Component({
@@ -24,7 +25,7 @@ export class CustomerRegisterComponent {
     mobileNumber: ''
   }
 
-  constructor(private auth: AuthService, private router: Router, private fb: FormBuilder) { 
+  constructor(private auth: AuthService, private router: Router, private fb: FormBuilder, private notification: NotificationService) { 
     const today = new Date();
     this.maxDate = today.toISOString().split('T')[0];
   }
@@ -94,17 +95,17 @@ export class CustomerRegisterComponent {
     if (this.customerSignUpForm.valid ) {
       if(this.fieldErrors.username)
         {
-          alert('Username already exists.');
+          this.notification.showDialog('Username already exists.', 'Warning', 'pi pi-exclamation-circle');
           return;
         }
       if(this.fieldErrors.email)
       {
-        alert('Email already exists.');
+        this.notification.showDialog('Email already exists.', 'Warning', 'pi pi-exclamation-circle');
         return;
       }
       if(this.fieldErrors.mobileNumber)
       {
-        alert('Mobile number already exists.');
+        this.notification.showDialog('Mobile number already exists.', 'Warning', 'pi pi-exclamation-circle');
         return;
       }
       let formData = { ...this.customerSignUpForm.value };
@@ -114,17 +115,26 @@ export class CustomerRegisterComponent {
       this.auth.customerSignUp(formData).subscribe({
         next: (data) => {
           console.log(data)
-          alert("Registered Successfully")
-          this.router.navigateByUrl('/login')
+          this.notification.showDialog(
+            'Registered Successfully',
+            'Success',
+            'pi pi-check-circle',
+            'OK',
+            () => this.router.navigateByUrl('/login')
+          );
         },
         error: (error: HttpErrorResponse) => {
-          alert(error.message)
+          this.notification.showDialog(
+            error.error?.exceptionMessage || error.error?.message || error.message || 'Registration failed',
+            'Error',
+            'pi pi-exclamation-triangle'
+          );
         }
       })
     }
     else {
       ValidateForm.validateAllFormFileds(this.customerSignUpForm);
-      alert("One or more feilds required")
+      this.notification.showDialog('One or more fields required', 'Warning', 'pi pi-exclamation-circle');
     }
   }
 

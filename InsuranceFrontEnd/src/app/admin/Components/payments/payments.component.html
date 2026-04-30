@@ -1,16 +1,11 @@
 <div class="wrapper">
   <app-admin-header></app-admin-header>
   <!-- Button trigger modal  -->
-  <div class="top_link">
-    <button (click)="goBack()" class="ms-3 mt-2">
-      <img
-        src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download"
-        alt=""
-      />Back
-    </button>
-  </div>
   <!-- Table starts here -->
   <div class="container py-2 mt-4" >
+    <app-page-header backClassName="ms-1">
+      <h2 page-title class="page-title m-0">Payments</h2>
+    </app-page-header>
     <div class="row align-items-center justify-content-between mb-2">
       <!-- Page Size Dropdown -->
       <div class="col-md-4 d-flex align-items-center">

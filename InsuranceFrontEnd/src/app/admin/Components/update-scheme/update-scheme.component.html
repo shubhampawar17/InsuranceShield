@@ -1,15 +1,9 @@
 <div class="wrapper">
   <app-admin-header></app-admin-header>
-  <div class="top_link">
-    <button (click)="goBack()" class="ms-3 mt-2">
-      <img
-        src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download"
-        alt=""
-      />Back
-    </button>
-  </div>
   <div class="container">
-    <h3 class="modal-title text-center mb-4" id="exampleModalLabel">Update Scheme Details</h3>
+    <app-page-header backClassName="ms-1">
+      <h2 page-title class="page-title m-0">Update Scheme Details</h2>
+    </app-page-header>
     <form [formGroup]="updateSchemeForm" class="p-4 border rounded shadow-sm bg-light custom-form">
       
       <!-- Scheme Name -->

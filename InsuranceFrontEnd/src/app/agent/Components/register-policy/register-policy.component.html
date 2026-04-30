@@ -1,13 +1,12 @@
 <div class="wrapper">
   <app-agent-header></app-agent-header>
-  <div class="top_link">
-    <button (click)="goBack()" class="ms-3 mt-2" ><img src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download"
-        alt=""/>Back</button>
-  </div>
   <div class="container">
+    <app-page-header backClassName="ms-1">
+      <h2 page-title class="page-title m-0">Policy Registration</h2>
+    </app-page-header>
     <div class="row ms-4">
       <div class="col-md-8">
-        <h2>Policy Registration Form</h2>
+        <h2 class="visually-hidden">Policy Registration Form</h2>
         <form [formGroup]="policyRegistrationForm" name="policyRegistrationForm">
           <div class="row">
           <div class="col-md-2 mt-2" >

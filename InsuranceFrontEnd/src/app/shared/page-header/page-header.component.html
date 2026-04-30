@@ -1,0 +1,11 @@
+<div class="app-page-header">
+  <div class="app-page-header-left">
+    <app-back-button [className]="backClassName"></app-back-button>
+    <ng-content select="[page-title]"></ng-content>
+  </div>
+
+  <div class="app-page-header-right">
+    <ng-content select="[page-actions]"></ng-content>
+  </div>
+</div>
+

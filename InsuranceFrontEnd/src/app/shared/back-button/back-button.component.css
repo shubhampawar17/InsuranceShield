@@ -1,0 +1,39 @@
+:host {
+  display: inline-block;
+}
+
+.app-back-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #3b82f6;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.app-back-button:hover {
+  color: #1e3a8a;
+}
+
+.app-back-button:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.55);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.app-back-icon {
+  margin-top: 1px;
+  flex: 0 0 auto;
+}
+
+.app-back-label {
+  line-height: 1;
+}
+

@@ -2,16 +2,15 @@
 <div class="wrapper">
         <app-customer-header></app-customer-header>
 
-    <div class="top_link" *ngIf="claimData.length!=0">
-      <button (click)="goBack()" class="ms-3 mt-2" ><img src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download"
-          alt=""/>Back</button>
-    </div>
     <!-- <tfoot *ngIf="claimData.length==0">
       <tr class ="text-center" >
         <td colspan="6"> No Claim Data Found</td>
       </tr>
     </tfoot> -->
     <div class="container" *ngIf="claimData.length!=0">
+        <app-page-header backClassName="ms-1">
+          <h2 page-title class="page-title m-0">Claims</h2>
+        </app-page-header>
         <div class="row">
           <div class="pagination-controls ms-4 mb-3 pt-3">
             <!-- Other pagination elements -->

@@ -27,7 +27,13 @@ export class NotificationService {
     this.messageService.add({ severity: 'warn', summary: summary, detail: message });
   }
 
-  showDialog(message: string, header: string = 'Alert', icon: string = 'pi pi-info-circle', acceptLabel: string = 'OK') {
+  showDialog(
+    message: string,
+    header: string = 'Alert',
+    icon: string = 'pi pi-info-circle',
+    acceptLabel: string = 'OK',
+    onAccept?: () => void
+  ) {
     this.confirmationService.confirm({
       message: message,
       header: header,
@@ -35,7 +41,9 @@ export class NotificationService {
       acceptVisible: true,
       rejectVisible: false,
       acceptLabel: acceptLabel,
-      accept: () => {}
+      accept: () => {
+        onAccept?.();
+      }
     });
   }
 }

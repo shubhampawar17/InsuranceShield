@@ -9,16 +9,12 @@
     <app-employee-header></app-employee-header>
   </div>
 -->
-<div class="top_link">
-  <button (click)="goBack()" class="ms-3 mt-2" ><img src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download"
-      alt=""/>Back</button>
-</div>
 <div class="container">
+  <app-page-header backClassName="ms-1">
+    <h2 page-title class="page-title m-0">Add Complaint</h2>
+  </app-page-header>
 
   <form class="row g-2" [formGroup]="addComplaintForm">
-    <div class="heading">
-      <h5>Add Complaint</h5>
-    </div>
     <div class="col-md-12">
       <input
         type="text"

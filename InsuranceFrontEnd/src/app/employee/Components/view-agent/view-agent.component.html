@@ -2,20 +2,19 @@
   <div *ngIf="isAdmin"><app-admin-header></app-admin-header></div>
   <div *ngIf="isEmployee"><app-employee-header></app-employee-header></div>
   <div class="main-content">
-    <div class="top_link">
-      <button (click)="goBack()" class="ms-3 mt-2" ><img src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download"
-          alt=""/>Back</button>
-    </div>
     <div class="page-shell">
-      <div class="page-actions" *ngIf="isEmployee">
+      <app-page-header backClassName="ms-1">
+        <h2 page-title class="page-title m-0">Agents</h2>
         <button
+          page-actions
           id="button"
           class="btn btn-secondary"
+          *ngIf="isEmployee"
           (click)="addAgent()"
         >
           Add Agent
         </button>
-      </div>
+      </app-page-header>
 
       <div class="container">
         <div class="row">

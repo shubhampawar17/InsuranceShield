@@ -1,15 +1,9 @@
 <div class="wrapper">
   <app-admin-header></app-admin-header>
-  <div class="top_link">
-    <button (click)="goBack()" class="ms-3 mt-2">
-      <img
-        src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download"
-        alt=""
-      />Back
-    </button>
-  </div>
   <div class="container main-content" id="addEmp">
-    <h3 id="Label">Employee Registration</h3>
+    <app-page-header backClassName="ms-1">
+      <h2 page-title class="page-title m-0">Employee Registration</h2>
+    </app-page-header>
   
     <form [formGroup]="addEmpForm">
       <div class="mb-3">

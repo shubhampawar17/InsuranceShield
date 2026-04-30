@@ -1,12 +1,10 @@
 <!-- Modal -->
 <div class="wrapper">
   <app-employee-header></app-employee-header>
-  <div class="top_link">
-    <button (click)="goBack()" class="ms-3 mt-2" ><img src="https://drive.google.com/u/0/uc?id=16U__U5dJdaTfNGobB_OpwAJ73vM50rPV&export=download"
-        alt=""/>Back</button>
-  </div>
   <div class="container" id="addAgent">
-    <h3 class="heading" id="Label">Register Agent</h3>
+    <app-page-header backClassName="ms-1">
+      <h2 page-title class="page-title m-0">Register Agent</h2>
+    </app-page-header>
   
     <form [formGroup]="addAgentForm">
       <div class="mb-3">
